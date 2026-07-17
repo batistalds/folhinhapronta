@@ -1,0 +1,46 @@
+export const mainPromotion = {
+  id: 'promo-5-mais-3',
+  title: 'Compra 5 materiais e ganha 3 grátis',
+  description: '8 materiais à tua escolha (fichas, resumos e planos) por um preço fixo.',
+  price: 29.9,
+  oldPrice: 223.2,
+  emoji: '🎁',
+  badge: 'OFERTA LIMITADA',
+  scarcity: 'Oferta termina quando o cronómetro chegar a zero',
+}
+
+export const promotions = [
+  {
+    id: 'promo-regresso-aulas',
+    title: 'Pack Regresso às Aulas',
+    description: '10 materiais essenciais para arrancar o ano com tudo organizado.',
+    price: 29.9,
+    oldPrice: 279.0,
+    emoji: '🎒',
+    badge: 'MAIS VENDIDO',
+    accent: 'petrol',
+    scarcity: null,
+  },
+  {
+    id: 'promo-3-mais-1',
+    title: 'Compra 3, leva 1 grátis',
+    description: '4 materiais à escolha, ideal para reforçar uma disciplina específica.',
+    price: 29.9,
+    oldPrice: 111.6,
+    emoji: '📚',
+    badge: 'NOVO',
+    accent: 'mint',
+    scarcity: 'Últimas unidades ao preço promocional',
+  },
+  {
+    id: 'promo-completo-ano',
+    title: 'Pack Completo do Ano',
+    description: '20 materiais que cobrem todo o ano letivo, todas as disciplinas.',
+    price: 29.9,
+    oldPrice: 558.0,
+    emoji: '🏆',
+    badge: 'POUPA 90%',
+    accent: 'orange',
+    scarcity: 'O pack mais completo da Aprendemais',
+  },
+]
