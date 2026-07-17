@@ -6,6 +6,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { ProductCard } from '@/components/sections/ProductCard'
 import { categories, products } from '@/data/products'
 import { useCart } from '@/context/CartContext'
+import { formatPrice } from '@/lib/utils'
 
 export function Products({ loading }) {
   const [activeCategory, setActiveCategory] = useState('todos')
@@ -24,9 +25,9 @@ export function Products({ loading }) {
             <FileText className="mr-1 h-3.5 w-3.5" />
             Materiais individuais
           </Badge>
-          <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Escolhe exatamente o que precisas</h2>
-          <p className="mt-3 text-petrol-600">Fichas, resumos e planos prontos a imprimir por {' '}
-            <span className="font-bold text-petrol">27,90€</span> cada.
+          <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Escolha exatamente o que você precisa</h2>
+          <p className="mt-3 text-petrol-600">Atividades, resumos e planos prontos para imprimir por {' '}
+            <span className="font-bold text-petrol">{formatPrice(27.9)}</span> cada.
           </p>
         </div>
 

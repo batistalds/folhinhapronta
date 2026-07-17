@@ -13,7 +13,7 @@ export function FAQ() {
             <HelpCircle className="mr-1 h-3.5 w-3.5" />
             Perguntas frequentes
           </Badge>
-          <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Ainda tens dúvidas?</h2>
+          <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Ainda tem dúvidas?</h2>
         </div>
 
         <motion.div

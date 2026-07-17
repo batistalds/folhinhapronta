@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
       line_items: lineItems.map((li) => ({
         quantity: li.qty,
         price_data: {
-          currency: 'eur',
+          currency: 'brl',
           unit_amount: Math.round(li.product.price * 100),
           product_data: { name: li.product.title },
         },

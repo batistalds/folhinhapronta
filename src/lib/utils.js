@@ -6,8 +6,8 @@ export function cn(...inputs) {
 }
 
 export function formatPrice(value) {
-  return new Intl.NumberFormat('pt-PT', {
+  return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
-    currency: 'EUR',
+    currency: 'BRL',
   }).format(value)
 }

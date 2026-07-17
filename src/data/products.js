@@ -2,7 +2,7 @@ export const categories = [
   { id: 'todos', label: 'Todos' },
   { id: 'matematica', label: 'Matemática' },
   { id: 'portugues', label: 'Português' },
-  { id: 'ciencias', label: 'Estudo do Meio' },
+  { id: 'ciencias', label: 'Ciências' },
   { id: 'ingles', label: 'Inglês' },
   { id: 'planos', label: 'Planos de Aula' },
 ]
@@ -10,7 +10,7 @@ export const categories = [
 export const products = [
   {
     id: 'mat-4ano-fracoes',
-    title: 'Fichas de Frações — 4º ano',
+    title: 'Atividades de Frações — 4º ano',
     description: '42 páginas · 4º ano',
     category: 'matematica',
     price: 27.9,
@@ -18,7 +18,7 @@ export const products = [
   },
   {
     id: 'mat-5-6-numeros',
-    title: 'Ficha de Números e Operações',
+    title: 'Atividades de Números e Operações',
     description: '38 páginas · 5º e 6º ano',
     category: 'matematica',
     price: 27.9,
@@ -35,14 +35,14 @@ export const products = [
   {
     id: 'port-interpretacao-textos',
     title: 'Interpretação de Textos',
-    description: '45 páginas · 2º e 3º ciclo',
+    description: '45 páginas · Anos finais do Fundamental',
     category: 'portugues',
     price: 27.9,
     icon: 'book-open',
   },
   {
     id: 'ciencias-corpo-humano',
-    title: 'O Corpo Humano — Ficha Completa',
+    title: 'O Corpo Humano — Atividade Completa',
     description: '28 páginas · 4º e 5º ano',
     category: 'ciencias',
     price: 27.9,
@@ -59,7 +59,7 @@ export const products = [
   {
     id: 'ingles-vocabulario-basico',
     title: 'Vocabulário Básico em Inglês',
-    description: '20 páginas · 1º ciclo',
+    description: '20 páginas · Anos iniciais',
     category: 'ingles',
     price: 27.9,
     icon: 'globe',
@@ -67,7 +67,7 @@ export const products = [
   {
     id: 'ingles-verbos-presente',
     title: 'Verbos no Presente Simples',
-    description: '26 páginas · 2º ciclo',
+    description: '26 páginas · Anos finais',
     category: 'ingles',
     price: 27.9,
     icon: 'globe',

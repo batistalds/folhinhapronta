@@ -60,7 +60,7 @@ export function Success() {
       } catch (err) {
         if (cancelled) return
         console.error('Erro ao consultar encomenda:', err)
-        setState({ loading: false, status: null, items: [], error: 'Não foi possível confirmar a tua compra.' })
+        setState({ loading: false, status: null, items: [], error: 'Não foi possível confirmar a sua compra.' })
       }
     }
 
@@ -76,7 +76,7 @@ export function Success() {
     return (
       <div className="container flex min-h-[60vh] flex-col items-center justify-center gap-4 py-16 text-center">
         <Loader2 className="h-12 w-12 animate-spin text-petrol" />
-        <p className="text-petrol-600">A confirmar o teu pagamento...</p>
+        <p className="text-petrol-600">Confirmando seu pagamento...</p>
       </div>
     )
   }
@@ -88,7 +88,7 @@ export function Success() {
         <div>
           <h1 className="text-2xl font-extrabold text-petrol sm:text-3xl">Compra confirmada!</h1>
           <p className="mt-2 max-w-md text-petrol-600">
-            Obrigado pela tua compra. Os teus materiais estão prontos — os links expiram em 30 minutos.
+            Obrigado pela sua compra. Seus materiais estão prontos — os links expiram em 30 minutos.
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export function Success() {
                 <Button asChild variant="mint" size="sm">
                   <a href={item.downloadUrl} target="_blank" rel="noreferrer">
                     <Download className="h-4 w-4" />
-                    Descarregar
+                    Baixar
                   </a>
                 </Button>
               ) : (
@@ -124,9 +124,9 @@ export function Success() {
     return (
       <div className="container flex min-h-[60vh] flex-col items-center justify-center gap-4 py-16 text-center">
         <Loader2 className="h-16 w-16 text-orange" />
-        <h1 className="text-2xl font-extrabold text-petrol sm:text-3xl">Ainda a confirmar o pagamento</h1>
+        <h1 className="text-2xl font-extrabold text-petrol sm:text-3xl">Ainda estamos confirmando o pagamento</h1>
         <p className="max-w-md text-petrol-600">
-          Isto pode demorar mais alguns segundos. Atualiza a página dentro de instantes — não te vamos cobrar duas vezes.
+          Isso pode levar mais alguns segundos. Atualize a página daqui a pouco — você não será cobrado duas vezes.
         </p>
         <Button variant="accent" size="lg" onClick={() => window.location.reload()}>
           Atualizar
@@ -139,7 +139,7 @@ export function Success() {
     <div className="container flex min-h-[60vh] flex-col items-center justify-center gap-4 py-16 text-center">
       <AlertTriangle className="h-16 w-16 text-orange" />
       <h1 className="text-2xl font-extrabold text-petrol sm:text-3xl">Não foi possível confirmar a compra</h1>
-      <p className="max-w-md text-petrol-600">{state.error ?? 'Verifica o teu e-mail ou contacta-nos para ajudar.'}</p>
+      <p className="max-w-md text-petrol-600">{state.error ?? 'Verifique seu e-mail ou entre em contato conosco para ajudar.'}</p>
       <Button variant="accent" size="lg" asChild>
         <Link to="/">Voltar à página inicial</Link>
       </Button>

@@ -2,11 +2,11 @@ export const testimonials = [
   {
     id: 't1',
     name: 'Sofia Almeida',
-    role: 'Professora do 1º Ciclo',
+    role: 'Professora do Ensino Fundamental I',
     initials: 'SA',
     rating: 5,
     quote:
-      'A Aprendemais poupa-me horas todas as semanas. As fichas estão sempre prontas a imprimir e os meus alunos adoram.',
+      'A Aprendemais me poupa horas todas as semanas. As atividades estão sempre prontas para imprimir e meus alunos adoram.',
   },
   {
     id: 't2',
@@ -15,12 +15,12 @@ export const testimonials = [
     initials: 'RN',
     rating: 5,
     quote:
-      'Comprei o Pack Regresso às Aulas e valeu cada cêntimo. Material de qualidade e chega logo depois da compra.',
+      'Comprei o Pack Volta às Aulas e valeu cada centavo. Material de qualidade e chega logo depois da compra.',
   },
   {
     id: 't3',
     name: 'Marta Costa',
-    role: 'Professora do 2º Ciclo',
+    role: 'Professora do Ensino Fundamental II',
     initials: 'MC',
     rating: 5,
     quote:
@@ -29,10 +29,10 @@ export const testimonials = [
   {
     id: 't4',
     name: 'João Pereira',
-    role: 'Encarregado de educação',
+    role: 'Pai de 1 filha',
     initials: 'JP',
     rating: 4,
     quote:
-      'Materiais bem organizados e fáceis de perceber. A minha filha gosta de fazer as fichas de ciências.',
+      'Materiais bem organizados e fáceis de entender. Minha filha gosta de fazer as atividades de ciências.',
   },
 ]

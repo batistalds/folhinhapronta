@@ -5,7 +5,7 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn(
-    'Supabase env vars em falta. Define VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY no ficheiro .env.'
+    'Supabase env vars em falta. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY no arquivo .env.'
   )
 }
 

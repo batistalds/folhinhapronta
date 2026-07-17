@@ -15,8 +15,8 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl text-balance text-4xl font-extrabold leading-[1.1] tracking-tight text-petrol sm:text-5xl lg:text-6xl"
         >
-          Aprendemais <span className="text-mint">—</span> menos tempo a preparar,
-          <br className="hidden sm:block" /> mais tempo a ensinar
+          Aprendemais <span className="text-mint">—</span> menos tempo preparando,
+          <br className="hidden sm:block" /> mais tempo ensinando
         </motion.h1>
 
         <motion.p

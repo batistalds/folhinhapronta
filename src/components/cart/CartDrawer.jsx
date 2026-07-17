@@ -26,7 +26,7 @@ export function CartDrawer({ open, onOpenChange }) {
       window.location.href = data.checkoutUrl
     } catch (err) {
       console.error('Erro ao iniciar checkout:', err)
-      setError('Não foi possível iniciar o pagamento. Tenta novamente.')
+      setError('Não foi possível iniciar o pagamento. Tente novamente.')
       setLoading(false)
     }
   }
@@ -45,7 +45,7 @@ export function CartDrawer({ open, onOpenChange }) {
           {items.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center text-muted-foreground">
               <ShoppingCart className="h-12 w-12 text-petrol-100" />
-              <p className="text-sm">O teu carrinho está vazio.</p>
+              <p className="text-sm">O seu carrinho está vazio.</p>
               <p className="text-xs">Explora as promoções e materiais disponíveis.</p>
             </div>
           ) : (
@@ -95,7 +95,7 @@ export function CartDrawer({ open, onOpenChange }) {
             {loading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                A processar...
+                Processando...
               </>
             ) : (
               'Finalizar compra'

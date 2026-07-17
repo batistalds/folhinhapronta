@@ -14,7 +14,7 @@ export function Footer() {
             </span>
           </div>
           <p className="text-sm text-petrol-200">
-            Materiais escolares em PDF prontos a imprimir. Menos tempo a preparar, mais tempo a ensinar.
+            Materiais escolares em PDF prontos para imprimir. Menos tempo preparando, mais tempo ensinando.
           </p>
         </div>
 
@@ -29,11 +29,11 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-mint">Contacto</h4>
+          <h4 className="mb-3 text-sm font-bold uppercase tracking-wide text-mint">Contato</h4>
           <ul className="space-y-2 text-sm text-petrol-200">
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4" />
-              <a href="mailto:ola@aprendemais.pt" className="hover:text-white">ola@aprendemais.pt</a>
+              <a href="mailto:contato@aprendemais.com.br" className="hover:text-white">contato@aprendemais.com.br</a>
             </li>
           </ul>
         </div>

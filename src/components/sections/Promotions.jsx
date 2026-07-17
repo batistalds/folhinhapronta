@@ -23,7 +23,7 @@ export function Promotions() {
             <Sparkles className="mr-1 h-3.5 w-3.5" />
             Promoções
           </Badge>
-          <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Ofertas pensadas para poupar tempo e dinheiro</h2>
+          <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Ofertas pensadas para economizar tempo e dinheiro</h2>
           <p className="mt-3 text-petrol-600">Packs exclusivos com desconto acumulado. Válidos por tempo limitado.</p>
         </div>
 
