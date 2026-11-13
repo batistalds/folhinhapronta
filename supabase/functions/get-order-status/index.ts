@@ -49,17 +49,45 @@ Deno.serve(async (req) => {
 
     const { data: orderItems, error: itemsError } = await supabaseAdmin
       .from('order_items')
-      .select('price, products (id, title, storage_path)')
+      .select('price, products (id, title, storage_path, bundle_items)')
       .eq('order_id', order.id)
 
     if (itemsError) throw itemsError
 
+    type Product = { id: string; title: string; storage_path: string | null; bundle_items: string[] | null }
+
+    // Packs não têm PDF próprio: são expandidos nos produtos que entregam.
+    // Um mesmo PDF comprado avulso e dentro de um pack aparece uma só vez.
+    const files = new Map<string, Product>()
+    const bundleIds = new Set<string>()
+
+    for (const item of orderItems ?? []) {
+      const product = item.products as unknown as Product
+      if (product.bundle_items?.length) {
+        product.bundle_items.forEach((id) => bundleIds.add(id))
+      } else if (product.storage_path) {
+        files.set(product.id, product)
+      }
+    }
+
+    const missing = [...bundleIds].filter((id) => !files.has(id))
+    if (missing.length > 0) {
+      const { data: bundled, error: bundledError } = await supabaseAdmin
+        .from('products')
+        .select('id, title, storage_path, bundle_items')
+        .in('id', missing)
+
+      if (bundledError) throw bundledError
+      for (const product of bundled ?? []) {
+        if (product.storage_path) files.set(product.id, product as Product)
+      }
+    }
+
     const items = await Promise.all(
-      (orderItems ?? []).map(async (item) => {
-        const product = item.products as unknown as { id: string; title: string; storage_path: string }
+      [...files.values()].map(async (product) => {
         const { data: signed, error: signError } = await supabaseAdmin.storage
           .from('pdfs')
-          .createSignedUrl(product.storage_path, SIGNED_URL_EXPIRES_IN)
+          .createSignedUrl(product.storage_path as string, SIGNED_URL_EXPIRES_IN)
 
         if (signError) {
           console.error(`Erro ao assinar ${product.storage_path}:`, signError)

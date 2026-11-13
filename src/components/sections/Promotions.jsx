@@ -24,7 +24,7 @@ export function Promotions() {
             Promoções
           </Badge>
           <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Ofertas pensadas para economizar tempo e dinheiro</h2>
-          <p className="mt-3 text-petrol-600">Packs exclusivos com desconto acumulado. Válidos por tempo limitado.</p>
+          <p className="mt-3 text-petrol-600">Packs com desconto em relação à compra avulsa de cada material.</p>
         </div>
 
         {/* Main promotion */}
@@ -57,7 +57,9 @@ export function Promotions() {
                   {formatPrice(mainPromotion.oldPrice)}
                 </span>
               </div>
-              <p className="mb-6 text-xs font-semibold text-petrol-500">{mainPromotion.scarcity}</p>
+              {mainPromotion.scarcity && (
+                <p className="mb-6 text-xs font-semibold text-petrol-500">{mainPromotion.scarcity}</p>
+              )}
 
               <div className="sm:hidden mb-6">
                 <CountdownTimer />

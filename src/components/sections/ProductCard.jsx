@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calculator, BookOpen, Microscope, Globe, Calendar, FileText, Check, Plus } from 'lucide-react'
+import { Calculator, BookOpen, Calendar, Pencil, Puzzle, FileText, Check, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { formatPrice } from '@/lib/utils'
 
 const icons = {
   calculator: Calculator,
   'book-open': BookOpen,
-  microscope: Microscope,
-  globe: Globe,
   calendar: Calendar,
+  pencil: Pencil,
+  puzzle: Puzzle,
 }
 
 export function ProductCard({ product, onAdd }) {

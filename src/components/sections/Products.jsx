@@ -4,7 +4,7 @@ import { FileText } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { ProductCard } from '@/components/sections/ProductCard'
-import { categories, products } from '@/data/products'
+import { categories, minPrice, products } from '@/data/products'
 import { useCart } from '@/context/CartContext'
 import { formatPrice } from '@/lib/utils'
 
@@ -26,8 +26,8 @@ export function Products({ loading }) {
             Materiais individuais
           </Badge>
           <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Escolha exatamente o que você precisa</h2>
-          <p className="mt-3 text-petrol-600">Atividades, resumos e planos prontos para imprimir por {' '}
-            <span className="font-bold text-petrol">{formatPrice(27.9)}</span> cada.
+          <p className="mt-3 text-petrol-600">Atividades, livros e rotinas prontos para imprimir a partir de{' '}
+            <span className="font-bold text-petrol">{formatPrice(minPrice)}</span>.
           </p>
         </div>
 

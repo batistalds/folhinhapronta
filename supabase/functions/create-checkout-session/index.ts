@@ -41,6 +41,7 @@ Deno.serve(async (req) => {
       .from('products')
       .select('id, title, price')
       .in('id', ids)
+      .eq('active', true)
 
     if (productsError) throw productsError
 
