@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { CheckCircle2, Download, Loader2, AlertTriangle } from 'lucide-react'
+import { CheckCircle2, Clock, Download, Loader2, AlertTriangle, XCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { supabase } from '@/lib/supabaseClient'
 import { useCart } from '@/context/CartContext'
 
-const POLL_INTERVAL_MS = 3000
-const MAX_POLLS = 6 // ~18s à espera do webhook confirmar o pagamento
+// Cartão: o webhook costuma confirmar em poucos segundos (consultas a cada 3s).
+// Pix: pode levar alguns minutos; depois das consultas rápidas a página mostra
+// "aguardando pagamento" e continua verificando a cada 10s por até ~15 min.
+const FAST_POLL_MS = 3000
+const FAST_POLLS = 6
+const SLOW_POLL_MS = 10000
+const MAX_POLLS = FAST_POLLS + 90
 
 export function Success() {
   const [searchParams] = useSearchParams()
@@ -49,17 +54,17 @@ export function Success() {
           return
         }
 
-        // ainda "pending" — o webhook pode demorar alguns segundos
+        // ainda "pending": cartão sendo confirmado pelo webhook ou Pix aguardando pagamento
         pollCount.current += 1
-        if (pollCount.current >= MAX_POLLS) {
+        if (pollCount.current >= FAST_POLLS) {
           setState({ loading: false, status: 'pending', items: [], error: null })
-          return
         }
+        if (pollCount.current >= MAX_POLLS) return
 
-        timeoutId = setTimeout(fetchStatus, POLL_INTERVAL_MS)
+        timeoutId = setTimeout(fetchStatus, pollCount.current < FAST_POLLS ? FAST_POLL_MS : SLOW_POLL_MS)
       } catch (err) {
         if (cancelled) return
-        console.error('Erro ao consultar encomenda:', err)
+        console.error('Erro ao consultar pedido:', err)
         setState({ loading: false, status: null, items: [], error: 'Não foi possível confirmar a sua compra.' })
       }
     }
@@ -123,13 +128,34 @@ export function Success() {
   if (state.status === 'pending') {
     return (
       <div className="container flex min-h-[60vh] flex-col items-center justify-center gap-4 py-16 text-center">
-        <Loader2 className="h-16 w-16 text-orange" />
-        <h1 className="text-2xl font-extrabold text-petrol sm:text-3xl">Ainda estamos confirmando o pagamento</h1>
+        <Clock className="h-16 w-16 text-orange" />
+        <h1 className="text-2xl font-extrabold text-petrol sm:text-3xl">Aguardando a confirmação do pagamento</h1>
         <p className="max-w-md text-petrol-600">
-          Isso pode levar mais alguns segundos. Atualize a página daqui a pouco — você não será cobrado duas vezes.
+          Se você pagou com <strong>Pix</strong>, a confirmação pode levar alguns minutos. Esta página verifica
+          sozinha e mostra os downloads assim que o pagamento for confirmado — e também enviamos o link por e-mail.
+        </p>
+        <p className="max-w-md text-sm text-petrol-500">
+          Ainda não pagou? Volte à tela da Stripe e use o QR Code ou o código Pix copia e cola antes de ele expirar.
+          Você não será cobrado duas vezes.
         </p>
         <Button variant="accent" size="lg" onClick={() => window.location.reload()}>
           Atualizar
+        </Button>
+      </div>
+    )
+  }
+
+  if (state.status === 'failed') {
+    return (
+      <div className="container flex min-h-[60vh] flex-col items-center justify-center gap-4 py-16 text-center">
+        <XCircle className="h-16 w-16 text-orange" />
+        <h1 className="text-2xl font-extrabold text-petrol sm:text-3xl">Pagamento não concluído</h1>
+        <p className="max-w-md text-petrol-600">
+          O pagamento não foi aprovado ou o Pix expirou antes de ser pago. Nenhum valor foi cobrado — você pode
+          fazer o pedido novamente quando quiser.
+        </p>
+        <Button variant="accent" size="lg" asChild>
+          <Link to="/">Voltar à loja</Link>
         </Button>
       </div>
     )

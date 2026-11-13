@@ -81,23 +81,40 @@ Deno.serve(async (req) => {
     const { error: itemsError } = await supabaseAdmin.from('order_items').insert(orderItemsPayload)
     if (itemsError) throw itemsError
 
-    // 3. Criar a Stripe Checkout Session
-    const session = await stripe.checkout.sessions.create({
+    // 3. Criar a Stripe Checkout Session (cartão + Pix)
+    const baseParams: Stripe.Checkout.SessionCreateParams = {
       mode: 'payment',
-      payment_method_types: ['card'],
       customer_email: customerEmail || undefined,
       line_items: lineItems.map((li) => ({
-        quantity: li.qty,
+        quantity: 1,
         price_data: {
           currency: 'brl',
-          unit_amount: Math.round(li.product.price * 100),
+          unit_amount: Math.round(Number(li.product.price) * 100),
           product_data: { name: li.product.title },
         },
       })),
       metadata: { order_id: order.id },
       success_url: `${SITE_URL}/sucesso?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${SITE_URL}/cancelado`,
-    })
+    }
+
+    let session: Stripe.Checkout.Session
+    try {
+      // Pix precisa estar ativado na Stripe (Settings → Payment methods).
+      // É assíncrono: o pedido só vira "paid" no evento async_payment_succeeded.
+      session = await stripe.checkout.sessions.create({
+        ...baseParams,
+        payment_method_types: ['card', 'pix'],
+        payment_method_options: {
+          pix: { expires_after_seconds: 60 * 60 }, // QR code válido por 1 hora
+        },
+      })
+    } catch (error) {
+      // Se o Pix não estiver disponível na conta, não bloqueia a venda: segue só com cartão.
+      if (!(error instanceof Stripe.errors.StripeInvalidRequestError)) throw error
+      console.warn('Pix indisponível, criando sessão só com cartão:', error.message)
+      session = await stripe.checkout.sessions.create({ ...baseParams, payment_method_types: ['card'] })
+    }
 
     // 4. Guardar o id da sessão Stripe na encomenda
     const { error: updateError } = await supabaseAdmin
