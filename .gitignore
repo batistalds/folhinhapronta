@@ -38,3 +38,6 @@ supabase/.branches
 
 .vercel
 .env*
+
+# Gerado pelo deno check local
+deno.lock
