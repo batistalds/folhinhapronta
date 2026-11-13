@@ -60,6 +60,15 @@ Copia `.env.example` para `.env` e preenche:
 | `VITE_STRIPE_PUBLISHABLE_KEY` | Frontend (opcional, não usada diretamente pois o checkout é feito no Stripe-hosted) | Stripe Dashboard → Developers → API keys |
 | `STRIPE_SECRET_KEY` | Só na Edge Function | Stripe Dashboard → Developers → API keys |
 | `STRIPE_WEBHOOK_SECRET` | Só na Edge Function | Stripe Dashboard → Developers → Webhooks (ver passo abaixo) |
+| `SITE_URL` | Edge Functions (links de retorno da Stripe e do e-mail) | URL pública do site, ex.: `https://folhinhapronta.pages.dev` (sem barra no final) |
+| `RESEND_API_KEY` | Só no `webhook-stripe` (e-mails) | resend.com → API Keys |
+| `EMAIL_FROM` | Só no `webhook-stripe` (remetente) | ex.: `Folhinha Pronta <contato@folhinhapronta.com.br>` — o domínio precisa estar verificado no Resend |
+| `CONTACT_EMAIL` | Só no `webhook-stripe` (aviso de nova venda) | e-mail interno que recebe as notificações; nunca aparece no site |
+
+**E-mails:** quando um pedido vira `paid`, o `webhook-stripe` envia ao cliente o
+link da página `/sucesso` da compra e manda um aviso de venda para
+`CONTACT_EMAIL`. Sem `RESEND_API_KEY`/`EMAIL_FROM` o envio é pulado (fica só um
+aviso no log) e a venda continua funcionando normalmente.
 
 **A `STRIPE_SECRET_KEY` nunca deve ir para o ficheiro `.env` do frontend nem
 ser commitada.** É configurada apenas como *secret* das Edge Functions do

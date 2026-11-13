@@ -10,7 +10,9 @@ import { createClient } from 'npm:@supabase/supabase-js@2'
 import { handleCorsPreflight, jsonResponse } from '../_shared/cors.ts'
 
 const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') ?? '', {
-  apiVersion: '2024-06-20',
+  // Versão fixada de propósito: nas versões novas a Stripe não aceita mais
+  // payment_method_types no Checkout (usado para oferecer cartão + Pix).
+  apiVersion: '2024-06-20' as Stripe.LatestApiVersion,
 })
 
 const supabaseAdmin = createClient(
