@@ -7,6 +7,7 @@ import { PromotionCard } from '@/components/sections/PromotionCard'
 import { PROMO_END_AT, mainPromotion, promotions } from '@/data/promotions'
 import { useCart } from '@/context/CartContext'
 import { formatPrice } from '@/lib/utils'
+import { PackCovers } from '@/components/sections/PackCovers'
 
 export function Promotions() {
   const { addItem } = useCart()
@@ -47,7 +48,9 @@ export function Promotions() {
 
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-xl">
-              <div className="mb-3 text-5xl">{mainPromotion.emoji}</div>
+              <div className="mb-4">
+                <PackCovers items={mainPromotion.items} max={6} size="h-24 sm:h-28" />
+              </div>
               <h3 className="mb-2 text-2xl font-extrabold text-petrol sm:text-3xl">{mainPromotion.title}</h3>
               <p className="mb-4 text-petrol-600">{mainPromotion.description}</p>
 

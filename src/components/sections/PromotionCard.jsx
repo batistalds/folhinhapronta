@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { formatPrice } from '@/lib/utils'
+import { PackCovers } from '@/components/sections/PackCovers'
 
 const accentStyles = {
   petrol: 'border-petrol-200 bg-petrol-50',
@@ -25,7 +26,7 @@ export function PromotionCard({ promo, onAdd }) {
       className={`flex h-full flex-col rounded-2xl border-2 p-6 shadow-card transition-shadow hover:shadow-card-hover ${accentStyles[accent]}`}
     >
       <div className="mb-3 flex items-start justify-between gap-2">
-        <span className="text-4xl">{promo.emoji}</span>
+        <PackCovers items={promo.items} max={4} />
         <Badge variant={badgeVariants[accent]}>{promo.badge}</Badge>
       </div>
 

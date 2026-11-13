@@ -13,6 +13,7 @@ export const categories = [
 export const products = [
   {
     id: "alfabeto-tracado",
+    image: "/products/alfabeto-tracado.webp",
     title: "Alfabeto Traçado",
     description: "27 páginas · Traçado das letras",
     category: "alfabetizacao",
@@ -21,6 +22,7 @@ export const products = [
   },
   {
     id: "vogais-tracado",
+    image: "/products/vogais-tracado.webp",
     title: "Vogais Traçado",
     description: "6 páginas · Traçado das vogais",
     category: "alfabetizacao",
@@ -29,6 +31,7 @@ export const products = [
   },
   {
     id: "forme-silabas",
+    image: "/products/forme-silabas.webp",
     title: "Forme Sílabas",
     description: "22 páginas · Formação de sílabas",
     category: "alfabetizacao",
@@ -37,6 +40,7 @@ export const products = [
   },
   {
     id: "letra-inicial",
+    image: "/products/letra-inicial.webp",
     title: "Letra Inicial",
     description: "27 páginas · Associação letra e imagem",
     category: "alfabetizacao",
@@ -45,6 +49,7 @@ export const products = [
   },
   {
     id: "troca-letra",
+    image: "/products/troca-letra.webp",
     title: "Troca Letra",
     description: "10 páginas · Consciência fonológica",
     category: "alfabetizacao",
@@ -53,6 +58,7 @@ export const products = [
   },
   {
     id: "qual-e-a-palavra",
+    image: "/products/qual-e-a-palavra.webp",
     title: "Qual é a Palavra?",
     description: "10 páginas · Leitura de palavras",
     category: "alfabetizacao",
@@ -61,6 +67,7 @@ export const products = [
   },
   {
     id: "aprende-cores",
+    image: "/products/aprende-cores.webp",
     title: "Aprende Cores",
     description: "11 páginas · Reconhecimento das cores",
     category: "numeros-formas",
@@ -69,6 +76,7 @@ export const products = [
   },
   {
     id: "aprende-quantidades",
+    image: "/products/aprende-quantidades.webp",
     title: "Aprende Quantidades",
     description: "11 páginas · Contagem e quantidades",
     category: "numeros-formas",
@@ -77,6 +85,7 @@ export const products = [
   },
   {
     id: "aprende-operacoes",
+    image: "/products/aprende-operacoes.webp",
     title: "Aprende Operações",
     description: "11 páginas · Primeiras continhas",
     category: "numeros-formas",
@@ -85,6 +94,7 @@ export const products = [
   },
   {
     id: "mestre-das-formas",
+    image: "/products/mestre-das-formas.webp",
     title: "Mestre das Formas",
     description: "6 páginas · Formas geométricas",
     category: "numeros-formas",
@@ -93,6 +103,7 @@ export const products = [
   },
   {
     id: "arco-iris-das-emocoes",
+    image: "/products/arco-iris-das-emocoes.webp",
     title: "Arco-Íris das Emoções",
     description: "6 páginas · Socioemocional",
     category: "atividades",
@@ -101,6 +112,7 @@ export const products = [
   },
   {
     id: "caderno-de-missoes-especiais",
+    image: "/products/caderno-de-missoes-especiais.webp",
     title: "Caderno de Missões Especiais",
     description: "6 páginas · Desafios divertidos",
     category: "atividades",
@@ -109,6 +121,7 @@ export const products = [
   },
   {
     id: "desafios-do-heroi",
+    image: "/products/desafios-do-heroi.webp",
     title: "Desafios do Herói",
     description: "6 páginas · Raciocínio e atenção",
     category: "atividades",
@@ -117,6 +130,7 @@ export const products = [
   },
   {
     id: "labirinto-das-ideias",
+    image: "/products/labirinto-das-ideias.webp",
     title: "Labirinto das Ideias",
     description: "8 páginas · Labirintos e lógica",
     category: "atividades",
@@ -125,6 +139,7 @@ export const products = [
   },
   {
     id: "exploradores-do-conhecimento",
+    image: "/products/exploradores-do-conhecimento.webp",
     title: "Exploradores do Conhecimento",
     description: "22 páginas · Atividades variadas",
     category: "atividades",
@@ -133,6 +148,7 @@ export const products = [
   },
   {
     id: "kit-rotina",
+    image: "/products/kit-rotina.webp",
     title: "Kit Rotina sem Drama",
     description: "14 páginas · Quadros, tags e rotinas manhã, tarde e noite",
     category: "rotina",
@@ -141,6 +157,7 @@ export const products = [
   },
   {
     id: "placas-de-banheiro",
+    image: "/products/placas-de-banheiro.webp",
     title: "Placas de Banheiro",
     description: "4 páginas · Versões menina e menino",
     category: "rotina",
@@ -149,6 +166,7 @@ export const products = [
   },
   {
     id: "livro-de-colorir-biblico",
+    image: "/products/livro-de-colorir-biblico.webp",
     title: "Livro de Colorir Bíblico",
     description: "36 páginas · Colorir com tema bíblico",
     category: "livros",
@@ -157,6 +175,7 @@ export const products = [
   },
   {
     id: "livro-de-colorir-ursinhos",
+    image: "/products/livro-de-colorir-ursinhos.webp",
     title: "Livro de Colorir dos Ursinhos",
     description: "36 páginas · Colorir com ursinhos",
     category: "livros",
@@ -165,6 +184,7 @@ export const products = [
   },
   {
     id: "tchau-fraldinha-menino",
+    image: "/products/tchau-fraldinha-menino.webp",
     title: "Tchau, Fraldinha! (menino)",
     description: "15 páginas · Desfralde em história",
     category: "livros",
@@ -173,6 +193,7 @@ export const products = [
   },
   {
     id: "tchau-fraldinha-menina",
+    image: "/products/tchau-fraldinha-menina.webp",
     title: "Tchau, Fraldinha! (menina)",
     description: "15 páginas · Desfralde em história",
     category: "livros",
@@ -181,6 +202,7 @@ export const products = [
   },
   {
     id: "a-pascoa-de-ton",
+    image: "/products/a-pascoa-de-ton.webp",
     title: "A Páscoa de Ton, o Coelhinho do Amor",
     description: "17 páginas · Ebook de Páscoa",
     category: "livros",
@@ -189,6 +211,7 @@ export const products = [
   },
   {
     id: "meu-diario-com-deus",
+    image: "/products/meu-diario-com-deus.webp",
     title: "Meu Diário com Deus",
     description: "18 páginas · Diário cristão infantil",
     category: "livros",

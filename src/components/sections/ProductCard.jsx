@@ -29,9 +29,20 @@ export function ProductCard({ product, onAdd }) {
       className="flex h-full flex-col overflow-hidden rounded-2xl border border-petrol-100 bg-white shadow-card transition-shadow hover:shadow-card-hover"
     >
       <div className="flex aspect-[4/3] items-center justify-center bg-gradient-to-br from-petrol-50 to-petrol-100">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm">
-          <Icon className="h-8 w-8 text-petrol" />
-        </div>
+        {product.image ? (
+          // Capa do PDF (página 1), gerada a partir do arquivo vendido.
+          <img
+            src={product.image}
+            alt={`Capa de ${product.title}`}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-contain p-3 drop-shadow-md"
+          />
+        ) : (
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm">
+            <Icon className="h-8 w-8 text-petrol" />
+          </div>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-5">
