@@ -19,9 +19,10 @@ export const faqItems = [
   },
   {
     id: 'faq-4',
-    question: 'Qual é a política de reembolso?',
+    question: 'Posso desistir da compra?',
+    // REVISAR com contador/advogado (CDC art. 49).
     answer:
-      'Como os materiais são digitais e de entrega imediata, não fazemos reembolsos após o download. Se tiver algum problema com o seu arquivo, entre em contato conosco e resolvemos rapidamente.',
+      'Sim. Pelo Código de Defesa do Consumidor (art. 49), você pode desistir em até 7 dias corridos após o pagamento, sem precisar justificar. É só enviar um e-mail para contato@folhinhapronta.com.br ou mensagem no WhatsApp (28) 99966-2398 com o e-mail usado na compra. Devolvemos o valor integral pelo mesmo meio de pagamento (estorno no cartão ou devolução do Pix) e o acesso aos downloads é encerrado. Se algum arquivo vier com problema, fale com a gente a qualquer momento.',
   },
   {
     id: 'faq-5',

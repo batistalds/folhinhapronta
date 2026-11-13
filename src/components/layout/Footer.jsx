@@ -69,7 +69,7 @@ export function Footer() {
         <p className="container text-center text-xs text-petrol-300">
           © {new Date().getFullYear()} {site.name}. Todos os direitos reservados.
           {site.legalName && ` ${site.legalName}.`}
-          {site.document && ` CNPJ ${site.document}.`} Materiais digitais — sem reembolso após download.
+          {site.document && ` CNPJ ${site.document}.`} Direito de arrependimento em até 7 dias (CDC, art. 49).
         </p>
       </div>
     </footer>
