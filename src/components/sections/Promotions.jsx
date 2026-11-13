@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { CountdownTimer } from '@/components/sections/CountdownTimer'
 import { PromotionCard } from '@/components/sections/PromotionCard'
-import { mainPromotion, promotions } from '@/data/promotions'
+import { PROMO_END_AT, mainPromotion, promotions } from '@/data/promotions'
 import { useCart } from '@/context/CartContext'
 import { formatPrice } from '@/lib/utils'
 
@@ -36,7 +36,7 @@ export function Promotions() {
           className="relative mb-10 overflow-hidden rounded-3xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 via-white to-orange-50 p-6 shadow-card-hover sm:p-10"
         >
           <div className="absolute right-6 top-6 hidden sm:block">
-            <CountdownTimer />
+            <CountdownTimer endAt={PROMO_END_AT} />
           </div>
 
           <div className="mb-4 flex items-center gap-3 sm:mb-2">
@@ -51,18 +51,14 @@ export function Promotions() {
               <h3 className="mb-2 text-2xl font-extrabold text-petrol sm:text-3xl">{mainPromotion.title}</h3>
               <p className="mb-4 text-petrol-600">{mainPromotion.description}</p>
 
-              <div className="mb-2 flex items-baseline gap-3">
+              <div className="mb-6 flex items-baseline gap-3">
                 <span className="text-4xl font-extrabold text-orange-600">{formatPrice(mainPromotion.price)}</span>
                 <span className="text-lg font-medium text-petrol-300 line-through">
                   {formatPrice(mainPromotion.oldPrice)}
                 </span>
               </div>
-              {mainPromotion.scarcity && (
-                <p className="mb-6 text-xs font-semibold text-petrol-500">{mainPromotion.scarcity}</p>
-              )}
-
-              <div className="sm:hidden mb-6">
-                <CountdownTimer />
+              <div className="mb-6 empty:hidden sm:hidden">
+                <CountdownTimer endAt={PROMO_END_AT} />
               </div>
 
               <Button

@@ -1,6 +1,11 @@
 // Packs: cada pack entrega todos os PDFs listados em `items`
 // (ver bundle_items em public.products e a função get-order-status).
 
+// Data real de fim da promoção (horário de Brasília), ex.: '2026-12-31T23:59:59-03:00'.
+// Com null não aparece cronômetro. Quando a data passa, o cronômetro some —
+// lembre de ajustar os preços (aqui e no banco) se a promoção acabar.
+export const PROMO_END_AT = null
+
 export const mainPromotion = {
   id: "pack-completo",
   title: "Combo Completo Folhinha Pronta",
@@ -11,7 +16,6 @@ export const mainPromotion = {
   items: ["alfabeto-tracado", "vogais-tracado", "forme-silabas", "letra-inicial", "troca-letra", "qual-e-a-palavra", "aprende-cores", "aprende-quantidades", "aprende-operacoes", "mestre-das-formas", "arco-iris-das-emocoes", "caderno-de-missoes-especiais", "desafios-do-heroi", "labirinto-das-ideias", "exploradores-do-conhecimento", "kit-rotina", "placas-de-banheiro", "livro-de-colorir-biblico", "livro-de-colorir-ursinhos", "tchau-fraldinha-menino", "tchau-fraldinha-menina", "a-pascoa-de-ton", "meu-diario-com-deus"],
   emoji: "🏆",
   badge: "MELHOR OFERTA",
-  scarcity: null,
 }
 
 export const promotions = [
@@ -26,7 +30,6 @@ export const promotions = [
     emoji: "✏️",
     badge: "MAIS VENDIDO",
     accent: "petrol",
-    scarcity: null,
   },
   {
     id: "pack-numeros-formas",
@@ -39,7 +42,6 @@ export const promotions = [
     emoji: "🔢",
     badge: "KIT",
     accent: "mint",
-    scarcity: null,
   },
   {
     id: "pack-fe",
@@ -52,6 +54,5 @@ export const promotions = [
     emoji: "🙏",
     badge: "KIT",
     accent: "orange",
-    scarcity: null,
   },
 ]

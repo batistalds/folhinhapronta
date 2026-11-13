@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { Flame } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { formatPrice } from '@/lib/utils'
@@ -39,13 +38,6 @@ export function PromotionCard({ promo, onAdd }) {
           <span className="text-sm font-medium text-petrol-300 line-through">{formatPrice(promo.oldPrice)}</span>
         )}
       </div>
-
-      {promo.scarcity && (
-        <div className="mb-4 flex items-center gap-1.5 text-xs font-semibold text-orange-600">
-          <Flame className="h-3.5 w-3.5" />
-          {promo.scarcity}
-        </div>
-      )}
 
       <Button variant="accent" className="w-full" onClick={() => onAdd(promo)}>
         Adicionar ao carrinho
