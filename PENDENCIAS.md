@@ -22,13 +22,13 @@
 - [x] E-mail ao cliente com o link da /sucesso e aviso de venda para `CONTACT_EMAIL` (Resend)
 - [x] Páginas /termos e /privacidade (MODELO), rodapé com contato e links legais, sem ícones de redes
 - [x] Direito de arrependimento de 7 dias (CDC art. 49) no lugar de "sem reembolso"
+- [x] Migration 0006 aplicada e funções publicadas (Pix ativo no checkout de teste, webhook validado)
+- [x] Imagens dos produtos geradas dos próprios PDFs (`public/products/`) e capas sobrepostas nos kits
 - [x] FAQ alinhada com o funcionamento real; textos pt-PT → pt-BR; README atualizado
 
 ## Depende de você
 
 ### Para colocar as mudanças de pagamento no ar
-- [ ] Aplicar a migration 0006 e publicar as funções (comandos no README, seção "Deploy").
-      **Ordem:** `db push` primeiro, depois as funções.
 - [ ] Stripe → Settings → Payment methods: ativar **Pix** (teste e produção).
 - [ ] Stripe → Settings → Business → Public details: trocar o nome público para **Folhinha Pronta**
       (aparece no checkout e no extrato do cliente).
@@ -46,6 +46,7 @@
 - [ ] Opcional: apontar o site para o domínio próprio e atualizar `SITE_URL`.
 
 ### Conteúdo e jurídico
+- [ ] Confirmar o direito de revenda dos materiais com logo "ABC Fácil" (6 de alfabetização) e dos livros de colorir com texto em inglês.
 - [ ] Revisar Termos, Privacidade e o texto de arrependimento com contador/advogado.
 - [ ] Informar nome/razão social e CNPJ quando houver (preencher `legalName` e `document`
       em `src/data/site.js`).
