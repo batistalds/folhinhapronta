@@ -18,7 +18,7 @@ export function Header() {
               <BookOpenCheck className="h-5 w-5 sm:h-6 sm:w-6" />
             </span>
             <span className="text-xl font-extrabold tracking-tight text-petrol sm:text-2xl">
-              Aprende<span className="text-mint">mais</span>
+              Folhinha <span className="text-mint">Pronta</span>
             </span>
           </a>
 

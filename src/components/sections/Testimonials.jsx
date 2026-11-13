@@ -11,7 +11,7 @@ export function Testimonials() {
           <Badge variant="mint" className="mb-3">
             Depoimentos
           </Badge>
-          <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Professores e pais confiam na Aprendemais</h2>
+          <h2 className="text-3xl font-extrabold text-petrol sm:text-4xl">Professores e pais confiam na Folhinha Pronta</h2>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

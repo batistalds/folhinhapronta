@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { useToast } from '@/context/ToastContext'
 
 const CartContext = createContext(null)
-const STORAGE_KEY = 'aprendemais_cart'
+const STORAGE_KEY = 'folhinhapronta_cart'
 
 function readInitialCart() {
   if (typeof window === 'undefined') return []

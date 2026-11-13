@@ -12,7 +12,7 @@ export default {
     },
     extend: {
       colors: {
-        // Aprendemais brand palette
+        // Paleta da marca Folhinha Pronta
         petrol: {
           DEFAULT: '#1E3A5F',
           50: '#EAF0F6',

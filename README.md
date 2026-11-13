@@ -1,6 +1,6 @@
-# Aprendemais
+# Folhinha Pronta
 
-Landing page de vendas da Aprendemais — materiais escolares em PDF (fichas,
+Loja online da Folhinha Pronta — materiais escolares em PDF (fichas,
 exercícios, resumos, planos de aula). React + Vite + Tailwind + shadcn/ui no
 frontend, Supabase (Postgres, Storage, Edge Functions) + Stripe Checkout no
 backend.

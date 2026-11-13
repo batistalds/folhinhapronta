@@ -10,7 +10,7 @@ export function Footer() {
               <BookOpenCheck className="h-5 w-5" />
             </span>
             <span className="text-xl font-extrabold text-white">
-              Aprende<span className="text-mint">mais</span>
+              Folhinha <span className="text-mint">Pronta</span>
             </span>
           </div>
           <p className="text-sm text-petrol-200">
@@ -33,7 +33,7 @@ export function Footer() {
           <ul className="space-y-2 text-sm text-petrol-200">
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4" />
-              <a href="mailto:contato@aprendemais.com.br" className="hover:text-white">contato@aprendemais.com.br</a>
+              <a href="mailto:contato@folhinhapronta.com.br" className="hover:text-white">contato@folhinhapronta.com.br</a>
             </li>
           </ul>
         </div>
@@ -61,7 +61,7 @@ export function Footer() {
 
       <div className="border-t border-white/10 py-5">
         <p className="container text-center text-xs text-petrol-300">
-          © {new Date().getFullYear()} Aprendemais. Todos os direitos reservados. Materiais digitais — sem reembolso após download.
+          © {new Date().getFullYear()} Folhinha Pronta. Todos os direitos reservados. Materiais digitais — sem reembolso após download.
         </p>
       </div>
     </footer>

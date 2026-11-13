@@ -3,7 +3,7 @@
 
 export const mainPromotion = {
   id: "pack-completo",
-  title: "Combo Completo Aprendemais",
+  title: "Combo Completo Folhinha Pronta",
   description: "Todos os 23 materiais do site: alfabetização, números, atividades, rotina e livros.",
   price: 59.9,
   // soma dos preços avulsos dos itens do pack
