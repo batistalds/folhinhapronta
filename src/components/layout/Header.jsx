@@ -14,7 +14,7 @@ export function Header() {
     <>
       <header className="sticky top-0 z-40 border-b border-petrol-100/60 bg-white/90 backdrop-blur">
         <div className="container flex h-16 items-center justify-between sm:h-20">
-          <a href="#top" className="flex min-h-11 items-center gap-2">
+          <a href="/#top" className="flex min-h-11 items-center gap-2">
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-petrol text-mint sm:h-10 sm:w-10">
               <BookOpenCheck className="h-5 w-5 sm:h-6 sm:w-6" />
             </span>
@@ -24,18 +24,18 @@ export function Header() {
           </a>
 
           <nav className="hidden items-center gap-8 text-sm font-semibold text-petrol-600 md:flex">
-            <a href="#promocoes" className="transition-colors hover:text-orange">
+            <a href="/#promocoes" className="transition-colors hover:text-orange">
               Promoções
             </a>
-            <a href="#materiais" className="transition-colors hover:text-orange">
+            <a href="/#materiais" className="transition-colors hover:text-orange">
               Materiais
             </a>
             {testimonials.length > 0 && (
-              <a href="#depoimentos" className="transition-colors hover:text-orange">
+              <a href="/#depoimentos" className="transition-colors hover:text-orange">
                 Depoimentos
               </a>
             )}
-            <a href="#faq" className="transition-colors hover:text-orange">
+            <a href="/#faq" className="transition-colors hover:text-orange">
               FAQ
             </a>
           </nav>
