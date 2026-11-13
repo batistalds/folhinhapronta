@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { Star, Download, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export function Hero() {
@@ -34,32 +33,8 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <Button variant="accent" size="lg" asChild>
-            <a href="#promocoes">Ver ofertas limitadas</a>
+            <a href="#promocoes">Ver promoções</a>
           </Button>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 pt-4 text-sm font-semibold text-petrol-600"
-        >
-          <div className="flex items-center gap-2">
-            <div className="flex text-orange">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-4 w-4 fill-orange" />
-              ))}
-            </div>
-            <span>4.9/5 (1.240 avaliações)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Download className="h-4 w-4 text-mint" />
-            <span>+50.000 downloads</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-petrol" />
-            <span>+8.500 professores e pais já compraram</span>
-          </div>
         </motion.div>
       </div>
     </section>
