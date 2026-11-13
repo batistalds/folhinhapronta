@@ -3,7 +3,7 @@
 // A tabela `orders` não tem políticas RLS públicas (não há sistema de
 // contas nesta loja), por isso a página /sucesso não consulta a tabela
 // diretamente com a anon key — pede a esta função, que usa a service role,
-// confirma que a encomenda está "paid" e devolve links de download
+// confirma que o pedido está "paid" e retorna links de download
 // assinados (válidos 30 minutos) para cada PDF comprado.
 
 import { createClient } from 'npm:@supabase/supabase-js@2'
@@ -28,7 +28,7 @@ Deno.serve(async (req) => {
     const { sessionId } = await req.json()
 
     if (!sessionId) {
-      return jsonResponse({ error: 'sessionId em falta' }, 400)
+      return jsonResponse({ error: 'sessionId ausente' }, 400)
     }
 
     const { data: order, error: orderError } = await supabaseAdmin

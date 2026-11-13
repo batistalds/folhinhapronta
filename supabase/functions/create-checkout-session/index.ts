@@ -1,9 +1,9 @@
 // Supabase Edge Function: create-checkout-session
 //
 // Recebe os itens do carrinho do frontend, valida-os e recalcula os preços
-// a partir da tabela `products` (nunca confia em preços vindos do browser),
-// cria a encomenda (status "pending") + itens, abre uma Stripe Checkout
-// Session em modo pagamento único e devolve o URL de checkout.
+// a partir da tabela `products` (nunca confia em preços vindos do navegador),
+// cria o pedido (status "pending") + itens, abre uma Stripe Checkout
+// Session em modo pagamento único e retorna a URL de checkout.
 
 import Stripe from 'npm:stripe@17'
 import { createClient } from 'npm:@supabase/supabase-js@2'
@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
     }
 
     // Produtos digitais: cada produto entra uma única vez, sempre com quantidade 1.
-    // IDs repetidos e qualquer "qty" enviada pelo browser são ignorados.
+    // IDs repetidos e qualquer "qty" enviada pelo navegador são ignorados.
     const ids = [...new Set(items.map((item: { id: string }) => String(item?.id ?? '')))].filter(Boolean)
 
     if (ids.length === 0 || ids.length > 50) {
@@ -64,7 +64,7 @@ Deno.serve(async (req) => {
 
     const total = lineItems.reduce((sum, li) => sum + Number(li.product.price), 0)
 
-    // 1. Criar a encomenda (pending)
+    // 1. Criar o pedido (pending)
     const { data: order, error: orderError } = await supabaseAdmin
       .from('orders')
       .insert({ customer_email: customerEmail ?? null, total, status: 'pending' })
@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
 
     if (orderError) throw orderError
 
-    // 2. Criar os itens da encomenda
+    // 2. Criar os itens do pedido
     const orderItemsPayload = lineItems.map((li) => ({
       order_id: order.id,
       product_id: li.product.id,
@@ -118,7 +118,7 @@ Deno.serve(async (req) => {
       session = await stripe.checkout.sessions.create({ ...baseParams, payment_method_types: ['card'] })
     }
 
-    // 4. Guardar o id da sessão Stripe na encomenda
+    // 4. Salvar o id da sessão Stripe no pedido
     const { error: updateError } = await supabaseAdmin
       .from('orders')
       .update({ stripe_session_id: session.id })

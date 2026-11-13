@@ -1,162 +1,130 @@
 # Folhinha Pronta
 
-Loja online da Folhinha Pronta — materiais escolares em PDF (fichas,
-exercícios, resumos, planos de aula). React + Vite + Tailwind + shadcn/ui no
-frontend, Supabase (Postgres, Storage, Edge Functions) + Stripe Checkout no
-backend.
+Loja online da Folhinha Pronta — atividades infantis em PDF prontas para
+imprimir (alfabetização, números, rotina, livros de colorir e kits).
+React + Vite + Tailwind no frontend; Supabase (Postgres, Storage, Edge
+Functions) + Stripe Checkout (cartão e Pix) no backend.
+
+- Site: https://folhinhapronta.pages.dev (Cloudflare Pages)
+- Repositório: https://github.com/batistalds/folhinhapronta
 
 ## Stack
 
-- React 19 + Vite
-- Tailwind CSS 3 + componentes no estilo shadcn/ui (Radix primitives)
-- Framer Motion (animações, cronómetro, transições)
-- React Router (`/`, `/sucesso`, `/cancelado`)
-- Supabase (Postgres + RLS, Storage privado, Edge Functions em Deno)
-- Stripe Checkout (modo pagamento único, hospedado pela Stripe)
+- React 19 + Vite, React Router (`/`, `/sucesso`, `/cancelado`, `/termos`, `/privacidade`)
+- Tailwind CSS 3 + componentes no estilo shadcn/ui (Radix), Framer Motion
+- Supabase: Postgres com RLS, bucket privado `pdfs`, Edge Functions em Deno
+- Stripe Checkout (pagamento único, cartão + Pix)
+- Resend (e-mails de confirmação e aviso de venda)
+- Cloudflare Pages (deploy automático a cada push na `master`)
 
 ## Estrutura
 
 ```
 src/
-  components/
-    ui/          shadcn-style primitives (button, card, sheet, accordion, tabs, skeleton, badge)
-    layout/      Header, Footer
-    cart/        CartDrawer
-    sections/    Hero, Promotions, Products, Testimonials, FAQ + subcomponentes
-  context/       CartContext (estado do carrinho), ToastContext (notificações)
-  data/          catálogo mockado (products.js, promotions.js) + testimonials/faq
-  hooks/         useCountdown (cronómetro em loop)
-  lib/           supabaseClient.js, utils.js (cn, formatPrice)
-  pages/         Home, Success, Cancelled
+  components/   ui/ (primitivos), layout/ (Header, Footer, ScrollToTop),
+                cart/ (CartDrawer), sections/ (Hero, Promotions, Products,
+                Testimonials, FAQ, CountdownTimer)
+  context/      CartContext (carrinho, 1 unidade por produto), ToastContext
+  data/         products.js, promotions.js (catálogo e kits), faq.js,
+                testimonials.js (vazio = seção oculta), site.js (contato público)
+  hooks/        useCountdown (contagem até a data real PROMO_END_AT)
+  pages/        Home, Success, Cancelled, legal/ (Termos, Privacidade)
+public/_redirects   SPA no Cloudflare Pages (/* → /index.html)
 
 supabase/
-  migrations/0001_init.sql   schema (products, orders, order_items) + RLS + bucket "pdfs"
-  seed.sql                   dados de exemplo alinhados com src/data/products.js e promotions.js
+  migrations/   0001 schema · 0004 catálogo real · 0005 nova marca · 0006 pagamento/e-mails
   functions/
-    create-checkout-session/ cria a encomenda + a Stripe Checkout Session
-    webhook-stripe/          confirma o pagamento via webhook da Stripe
-    get-order-status/        usado pela página /sucesso para obter downloads
+    create-checkout-session/  valida o carrinho, cria o pedido e a sessão da Stripe
+    webhook-stripe/           confirma pagamento (cartão/Pix) e envia e-mails
+    get-order-status/         usado pela /sucesso para gerar os links de download
+    _shared/                  CORS e envio de e-mail (Resend)
+scripts/upload-pdfs.ps1      envia os PDFs de pdf/site/ para o bucket "pdfs"
 ```
 
-## Como correr localmente
+## Rodar localmente
 
 ```bash
 npm install
 npm run dev
 ```
 
-O site abre com o catálogo mockado (`src/data/`). O carrinho funciona
-imediatamente sem qualquer configuração — só o botão "Finalizar compra"
-precisa das variáveis de ambiente e das Edge Functions descritas abaixo.
+Copie `.env.example` para `.env` e preencha as variáveis `VITE_*`. O carrinho
+funciona sem configuração; o botão "Finalizar compra" precisa das Edge
+Functions publicadas.
 
 ## Variáveis de ambiente
 
-Copia `.env.example` para `.env` e preenche:
-
 | Variável | Onde é usada | Onde obter |
 |---|---|---|
-| `VITE_SUPABASE_URL` | Frontend | Supabase → Project Settings → API |
-| `VITE_SUPABASE_ANON_KEY` | Frontend | Supabase → Project Settings → API (chave `anon public`) |
-| `VITE_STRIPE_PUBLISHABLE_KEY` | Frontend (opcional, não usada diretamente pois o checkout é feito no Stripe-hosted) | Stripe Dashboard → Developers → API keys |
-| `STRIPE_SECRET_KEY` | Só na Edge Function | Stripe Dashboard → Developers → API keys |
-| `STRIPE_WEBHOOK_SECRET` | Só na Edge Function | Stripe Dashboard → Developers → Webhooks (ver passo abaixo) |
+| `VITE_SUPABASE_URL` | Frontend (Cloudflare Pages) | Supabase → Project Settings → API |
+| `VITE_SUPABASE_ANON_KEY` | Frontend (Cloudflare Pages) | Supabase → Project Settings → API (chave `anon public`) |
+| `STRIPE_SECRET_KEY` | Edge Functions | Stripe → Developers → API keys |
+| `STRIPE_WEBHOOK_SECRET` | `webhook-stripe` | Stripe → Developers → Webhooks → endpoint → *Signing secret* |
 | `SITE_URL` | Edge Functions (links de retorno da Stripe e do e-mail) | URL pública do site, ex.: `https://folhinhapronta.pages.dev` (sem barra no final) |
-| `RESEND_API_KEY` | Só no `webhook-stripe` (e-mails) | resend.com → API Keys |
-| `EMAIL_FROM` | Só no `webhook-stripe` (remetente) | ex.: `Folhinha Pronta <contato@folhinhapronta.com.br>` — o domínio precisa estar verificado no Resend |
-| `CONTACT_EMAIL` | Só no `webhook-stripe` (aviso de nova venda) | e-mail interno que recebe as notificações; nunca aparece no site |
+| `RESEND_API_KEY` | `webhook-stripe` (e-mails) | resend.com → API Keys |
+| `EMAIL_FROM` | `webhook-stripe` (remetente) | ex.: `Folhinha Pronta <contato@folhinhapronta.com.br>` — o domínio precisa estar verificado no Resend |
+| `CONTACT_EMAIL` | `webhook-stripe` (aviso de nova venda) | e-mail interno que recebe as notificações; nunca aparece no site |
+
+Os segredos ficam **só** nos secrets do Supabase (`supabase secrets set NOME=valor`)
+— nunca em `.env` commitado nem no frontend. `SUPABASE_URL` e
+`SUPABASE_SERVICE_ROLE_KEY` já existem automaticamente nas Edge Functions.
 
 **E-mails:** quando um pedido vira `paid`, o `webhook-stripe` envia ao cliente o
 link da página `/sucesso` da compra e manda um aviso de venda para
 `CONTACT_EMAIL`. Sem `RESEND_API_KEY`/`EMAIL_FROM` o envio é pulado (fica só um
 aviso no log) e a venda continua funcionando normalmente.
 
-**A `STRIPE_SECRET_KEY` nunca deve ir para o ficheiro `.env` do frontend nem
-ser commitada.** É configurada apenas como *secret* das Edge Functions do
-Supabase (ver abaixo).
+## Deploy
 
-## Passos manuais — Supabase
+**Frontend:** push na `master` → Cloudflare Pages publica sozinho
+(build `npm run build`, saída `dist`).
 
-1. **Correr as migrations.** No SQL Editor do projeto Supabase, corre por
-   ordem:
-   - `supabase/migrations/0001_init.sql` (schema + RLS + criação do bucket)
-   - `supabase/seed.sql` (opcional — dados de exemplo)
+**Banco e funções** (Supabase CLI, com `supabase login` e `supabase link` feitos):
 
-   Ou, com o Supabase CLI instalado e o projeto ligado (`supabase link`):
-   ```bash
-   supabase db push
-   ```
+```bash
+npx supabase db push --remote
+npx supabase functions deploy create-checkout-session --remote
+npx supabase functions deploy get-order-status --remote
+npx supabase functions deploy webhook-stripe --no-verify-jwt --remote
+```
 
-2. **Confirmar o bucket `pdfs`.** A migration já o cria como privado
-   (`public: false`). Confirma em Storage → pdfs que aparece como privado.
-   Faz upload dos PDFs reais respeitando os caminhos definidos na coluna
-   `storage_path` de cada produto em `supabase/seed.sql` (ex:
-   `matematica/fracoes-4ano.pdf`). Os packs promocionais são entregues como
-   um único PDF/ZIP combinado — ajusta `storage_path` se preferires outra
-   estrutura.
+O webhook usa `--no-verify-jwt` porque quem chama é a Stripe, não o frontend.
 
-3. **Configurar os secrets das Edge Functions.** Com o Supabase CLI:
-   ```bash
-   supabase secrets set STRIPE_SECRET_KEY=sk_test_xxx
-   supabase secrets set STRIPE_WEBHOOK_SECRET=whsec_xxx
-   supabase secrets set SITE_URL=http://localhost:5173
-   ```
-   (`SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` já existem automaticamente
-   no ambiente das Edge Functions — não precisas de os definir.)
+**PDFs:** coloque os arquivos em `pdf/site/<categoria>/<arquivo>.pdf` (pasta
+ignorada pelo git) e rode `powershell -ExecutionPolicy Bypass -File scripts\upload-pdfs.ps1`.
+O caminho dentro do bucket precisa ser igual ao `storage_path` do produto.
 
-   Em produção, atualiza `SITE_URL` para o domínio real (é usado para gerar
-   os `success_url`/`cancel_url` da Stripe).
+## Stripe
 
-4. **Deploy das Edge Functions:**
-   ```bash
-   supabase functions deploy create-checkout-session
-   supabase functions deploy webhook-stripe --no-verify-jwt
-   supabase functions deploy get-order-status
-   ```
-   O webhook usa `--no-verify-jwt` porque quem o chama é a Stripe, não o
-   teu frontend autenticado com a anon key.
-
-## Passos manuais — Stripe
-
-1. Cria uma conta/projeto Stripe (usa o modo *Test* enquanto desenvolves).
-2. Não é necessário pré-criar Produtos/Preços no dashboard — a Edge Function
-   `create-checkout-session` cria os `price_data` dinamicamente a partir da
-   tabela `products` do Supabase em cada checkout.
-3. **Configurar o webhook:**
-   - Dashboard → Developers → Webhooks → *Add endpoint*
-   - URL: `https://<project-ref>.supabase.co/functions/v1/webhook-stripe`
-   - Evento a subscrever: `checkout.session.completed` (e opcionalmente
-     `checkout.session.expired`)
-   - Copia o *Signing secret* (`whsec_...`) gerado e define-o como
-     `STRIPE_WEBHOOK_SECRET` no passo anterior.
-4. Usa os [cartões de teste da Stripe](https://stripe.com/docs/testing) para
-   validar o fluxo completo (ex: `4242 4242 4242 4242`).
+1. Não é preciso criar produtos/preços na Stripe: a função monta os itens a
+   partir da tabela `products` a cada checkout.
+2. **Pix:** ative em Settings → Payment methods. Se o Pix não estiver
+   disponível, o checkout cai automaticamente para só cartão.
+3. **Webhook:** endpoint `https://<project-ref>.supabase.co/functions/v1/webhook-stripe`
+   com os eventos `checkout.session.completed`, `checkout.session.expired`,
+   `checkout.session.async_payment_succeeded` e `checkout.session.async_payment_failed`.
+4. As funções fixam a API da Stripe em `2024-06-20` (versões novas não aceitam
+   `payment_method_types` no Checkout).
+5. Teste com o cartão `4242 4242 4242 4242` (qualquer data futura e CVC).
 
 ## Fluxo de pagamento
 
-1. O cliente monta o carrinho na landing page (estado local via `CartContext`).
-2. Ao clicar "Finalizar compra", o frontend chama a Edge Function
-   `create-checkout-session` com os IDs e quantidades do carrinho.
-3. A função valida os IDs e recalcula os preços a partir da tabela
-   `products` (nunca confia em preços vindos do browser), cria a `order`
-   (status `pending`) + `order_items`, abre uma Stripe Checkout Session e
-   devolve o `checkoutUrl`.
-4. O frontend redireciona para essa URL (página de pagamento da própria
-   Stripe).
-5. Após o pagamento, a Stripe redireciona para `/sucesso?session_id=...` e
-   dispara o webhook `checkout.session.completed`.
-6. O webhook (`webhook-stripe`) valida a assinatura e marca a `order` como
-   `paid`.
-7. A página `/sucesso` chama `get-order-status` com o `session_id` (com
-   *polling* de alguns segundos caso o webhook ainda não tenha chegado) e
-   mostra um link de download assinado (válido 30 min) por cada material
-   comprado.
+1. O cliente monta o carrinho (cada produto entra uma vez) e clica em "Finalizar compra".
+2. `create-checkout-session` ignora ids repetidos, recalcula os preços pela
+   tabela `products` (só produtos `active`), cria o pedido `pending` + itens e
+   abre a sessão da Stripe (cartão + Pix).
+3. Cartão: `checkout.session.completed` com `payment_status = paid` → pedido `paid`.
+   Pix: o pedido fica `pending` até `checkout.session.async_payment_succeeded`
+   (`paid`) ou `async_payment_failed` (`failed`). Sessão expirada → `failed`.
+4. O webhook é idempotente (só muda para `paid` se ainda não estiver) e, na
+   transição, envia os e-mails em segundo plano.
+5. A `/sucesso` consulta `get-order-status`; packs são expandidos em um link
+   por PDF. Cada link assinado vale 30 minutos; abrir a página de novo gera
+   novos links. Para Pix, a página continua verificando por ~15 minutos.
 
-## Nota sobre segurança dos dados
+## Segurança dos dados
 
-As tabelas `orders` e `order_items` não têm nenhuma política pública de RLS
-— não há sistema de contas nesta loja, por isso não existe um "dono do
-registo" autenticável no browser. Todo o acesso passa pelas Edge Functions,
-que usam a service role e ignoram RLS. A tabela `products` tem leitura
-pública (é o catálogo da loja) mas nenhuma escrita pública. O bucket `pdfs`
-é privado — os downloads só existem como *signed URLs* temporários gerados
-pela Edge Function depois de confirmado o pagamento.
+`orders` e `order_items` não têm política pública de RLS — todo acesso passa
+pelas Edge Functions com a service role. `products` tem só leitura pública.
+O bucket `pdfs` é privado: os downloads existem apenas como *signed URLs*
+temporárias, geradas depois de o pagamento ser confirmado.

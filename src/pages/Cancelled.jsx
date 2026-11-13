@@ -11,7 +11,7 @@ export function Cancelled() {
         Sua compra não foi concluída. Seu carrinho continua salvo, você pode tentar novamente quando quiser.
       </p>
       <Button variant="accent" size="lg" asChild>
-        <Link to="/">Voltar ao carrinho</Link>
+        <Link to="/">Voltar à loja</Link>
       </Button>
     </div>
   )

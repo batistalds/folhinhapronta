@@ -37,7 +37,7 @@ export function CartDrawer({ open, onOpenChange }) {
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <ShoppingCart className="h-5 w-5 text-orange" />
-            O meu carrinho
+            Meu carrinho
           </SheetTitle>
         </SheetHeader>
 
@@ -45,8 +45,8 @@ export function CartDrawer({ open, onOpenChange }) {
           {items.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center text-muted-foreground">
               <ShoppingCart className="h-12 w-12 text-petrol-100" />
-              <p className="text-sm">O seu carrinho está vazio.</p>
-              <p className="text-xs">Explora as promoções e materiais disponíveis.</p>
+              <p className="text-sm">Seu carrinho está vazio.</p>
+              <p className="text-xs">Explore as promoções e os materiais disponíveis.</p>
             </div>
           ) : (
             <ul className="flex flex-col gap-4">

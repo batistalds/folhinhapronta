@@ -5,7 +5,7 @@
 //   EMAIL_FROM      remetente, ex.: "Folhinha Pronta <contato@folhinhapronta.com.br>"
 //                   (o domínio precisa estar verificado no Resend)
 //
-// sendEmail nunca lança exceção: devolve true/false e registra o erro no log,
+// sendEmail nunca lança exceção: retorna true/false e registra o erro no log,
 // para que uma falha de e-mail não quebre quem chamou (ex.: o webhook).
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? ''
