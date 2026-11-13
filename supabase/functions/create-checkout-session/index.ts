@@ -35,7 +35,13 @@ Deno.serve(async (req) => {
       return jsonResponse({ error: 'O carrinho está vazio' }, 400)
     }
 
-    const ids = items.map((item: { id: string }) => item.id)
+    // Produtos digitais: cada produto entra uma única vez, sempre com quantidade 1.
+    // IDs repetidos e qualquer "qty" enviada pelo browser são ignorados.
+    const ids = [...new Set(items.map((item: { id: string }) => String(item?.id ?? '')))].filter(Boolean)
+
+    if (ids.length === 0 || ids.length > 50) {
+      return jsonResponse({ error: 'Carrinho inválido' }, 400)
+    }
 
     const { data: products, error: productsError } = await supabaseAdmin
       .from('products')
@@ -47,16 +53,14 @@ Deno.serve(async (req) => {
 
     const productMap = new Map(products.map((p) => [p.id, p]))
 
-    const lineItems = items.map((item: { id: string; qty: number }) => {
-      const product = productMap.get(item.id)
-      if (!product) {
-        throw new Error(`Produto inválido no carrinho: ${item.id}`)
-      }
-      const qty = Math.max(1, Math.floor(item.qty ?? 1))
-      return { product, qty }
-    })
+    const invalid = ids.filter((id) => !productMap.has(id))
+    if (invalid.length > 0) {
+      return jsonResponse({ error: `Produto indisponível: ${invalid.join(', ')}` }, 400)
+    }
 
-    const total = lineItems.reduce((sum, li) => sum + li.product.price * li.qty, 0)
+    const lineItems = ids.map((id) => ({ product: productMap.get(id)!, qty: 1 }))
+
+    const total = lineItems.reduce((sum, li) => sum + Number(li.product.price), 0)
 
     // 1. Criar a encomenda (pending)
     const { data: order, error: orderError } = await supabaseAdmin

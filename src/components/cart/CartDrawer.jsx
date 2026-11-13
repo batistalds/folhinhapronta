@@ -17,7 +17,7 @@ export function CartDrawer({ open, onOpenChange }) {
 
     try {
       const { data, error: fnError } = await supabase.functions.invoke('create-checkout-session', {
-        body: { items: items.map((i) => ({ id: i.id, qty: i.qty })) },
+        body: { items: items.map((i) => ({ id: i.id })) },
       })
 
       if (fnError) throw fnError
@@ -57,13 +57,10 @@ export function CartDrawer({ open, onOpenChange }) {
                 >
                   <div className="min-w-0">
                     <p className="truncate text-sm font-semibold text-petrol">{item.title}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {item.qty} × {formatPrice(item.price)}
-                    </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="whitespace-nowrap text-sm font-bold text-petrol">
-                      {formatPrice(item.qty * item.price)}
+                      {formatPrice(item.price)}
                     </span>
                     <button
                       onClick={() => removeItem(item.id)}
