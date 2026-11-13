@@ -4,6 +4,8 @@ import { Badge } from '@/components/ui/badge'
 import { testimonials } from '@/data/testimonials'
 
 export function Testimonials() {
+  if (testimonials.length === 0) return null
+
   return (
     <section id="depoimentos" className="py-16 sm:py-24">
       <div className="container">

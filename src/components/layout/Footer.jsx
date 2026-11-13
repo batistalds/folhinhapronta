@@ -1,4 +1,5 @@
 import { BookOpenCheck, Camera, MessageCircle, Mail } from 'lucide-react'
+import { testimonials } from '@/data/testimonials'
 
 export function Footer() {
   return (
@@ -23,7 +24,9 @@ export function Footer() {
           <ul className="text-sm text-petrol-200">
             <li><a href="#promocoes" className="inline-block py-2.5 hover:text-white">Promoções</a></li>
             <li><a href="#materiais" className="inline-block py-2.5 hover:text-white">Materiais</a></li>
-            <li><a href="#depoimentos" className="inline-block py-2.5 hover:text-white">Depoimentos</a></li>
+            {testimonials.length > 0 && (
+              <li><a href="#depoimentos" className="inline-block py-2.5 hover:text-white">Depoimentos</a></li>
+            )}
             <li><a href="#faq" className="inline-block py-2.5 hover:text-white">FAQ</a></li>
           </ul>
         </div>

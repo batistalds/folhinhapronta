@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useCart } from '@/context/CartContext'
 import { CartDrawer } from '@/components/cart/CartDrawer'
 import { formatPrice } from '@/lib/utils'
+import { testimonials } from '@/data/testimonials'
 
 export function Header() {
   const [cartOpen, setCartOpen] = useState(false)
@@ -29,9 +30,11 @@ export function Header() {
             <a href="#materiais" className="transition-colors hover:text-orange">
               Materiais
             </a>
-            <a href="#depoimentos" className="transition-colors hover:text-orange">
-              Depoimentos
-            </a>
+            {testimonials.length > 0 && (
+              <a href="#depoimentos" className="transition-colors hover:text-orange">
+                Depoimentos
+              </a>
+            )}
             <a href="#faq" className="transition-colors hover:text-orange">
               FAQ
             </a>
