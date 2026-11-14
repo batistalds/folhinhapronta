@@ -6,6 +6,8 @@
 - **Site:** https://folhinhapronta.pages.dev (Cloudflare Pages, deploy automático na `master`)
 - **Repositório:** https://github.com/batistalds/folhinhapronta
 - **Supabase:** projeto `btahtlpgbdagziqbyvfx`
+- **E-mail público da loja:** folhinhapronta@gmail.com (rodapé, Termos, FAQ, remetente e reply-to).
+  O e-mail pessoal fica só no secret `CONTACT_EMAIL` (aviso de venda) e nunca aparece ao cliente.
 - **Não usar:** o domínio aprendemais.com.br (não é nosso) e a Vercel (desativada).
 
 ## Feito
@@ -19,31 +21,32 @@
 - [x] Quantidade fixa em 1 por produto (carrinho e checkout)
 - [x] Pix no checkout (com volta automática para só cartão se o Pix não estiver disponível)
 - [x] Webhook idempotente: cartão, Pix compensado, Pix falho e sessão expirada
-- [x] E-mail ao cliente com o link da /sucesso e aviso de venda para `CONTACT_EMAIL` (Resend)
+- [x] E-mail ao cliente com o link da /sucesso e a lista de materiais (inclusive PDFs dos kits) e aviso de venda para `CONTACT_EMAIL` — via API do Brevo
 - [x] Páginas /termos e /privacidade (MODELO), rodapé com contato e links legais, sem ícones de redes
 - [x] Direito de arrependimento de 7 dias (CDC art. 49) no lugar de "sem reembolso"
 - [x] Migration 0006 aplicada e funções publicadas (Pix ativo no checkout de teste, webhook validado)
-- [x] Imagens dos produtos geradas dos próprios PDFs (`public/products/`) e capas sobrepostas nos kits
+- [x] Imagens dos produtos geradas dos próprios PDFs (`public/products/`, 4:3); oferta e kits com emoji
+- [x] Layout para celular: 2 produtos por linha, categorias roláveis, carrinho com nome completo
+- [x] Aviso de spam na /sucesso e na FAQ
+- [x] Link desligado na Stripe (teste); checkout mostra Cartão e Pix
 - [x] FAQ alinhada com o funcionamento real; textos pt-PT → pt-BR; README atualizado
 
 ## Depende de você
 
 ### Para colocar as mudanças de pagamento no ar
-- [ ] Stripe → Settings → Payment methods: ativar **Pix** (teste e produção).
-- [ ] Stripe → Settings → Business → Public details: trocar o nome público para **Folhinha Pronta**
-      (aparece no checkout e no extrato do cliente).
+- [ ] Stripe → Dados públicos: nome **Folhinha Pronta** e extrato `FOLHINHA PRONTA` (hoje aparece "Área restrita de Site49").
+- [ ] Modo produção: ativar a conta, Pix ligado, Link desligado (repetir o que foi feito no teste).
 - [ ] Webhook de teste já tem os 4 eventos. Ao criar o webhook de **produção**, incluir:
       `checkout.session.completed`, `checkout.session.expired`,
       `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`.
 
-### E-mail
-- [ ] Registrar o domínio **folhinhapronta.com.br** (registro.br) — hoje ele não existe,
-      então e-mails para contato@folhinhapronta.com.br voltam.
-- [ ] Cloudflare → Email Routing: encaminhar contato@folhinhapronta.com.br para o e-mail interno.
-- [ ] Resend: criar conta, verificar o domínio e configurar os secrets
-      `RESEND_API_KEY` e `EMAIL_FROM` (`Folhinha Pronta <contato@folhinhapronta.com.br>`).
-      Até lá, os e-mails são pulados sem afetar as vendas.
-- [ ] Opcional: apontar o site para o domínio próprio e atualizar `SITE_URL`.
+### E-mail (Brevo)
+- [ ] Criar conta no Brevo com folhinhapronta@gmail.com e verificar esse endereço como *sender*
+      (Senders, Domains & Dedicated IPs → Senders).
+- [ ] Criar a API key (SMTP & API → API keys) e configurar os secrets:
+      `BREVO_API_KEY`, `EMAIL_FROM_NAME="Folhinha Pronta"`, `EMAIL_FROM_ADDRESS=folhinhapronta@gmail.com`.
+- [ ] Publicar o `webhook-stripe` e testar uma compra (confirmação no e-mail do comprador e aviso de venda no e-mail pessoal).
+- [ ] Opcional (melhora a entrega e reduz spam): domínio próprio autenticado no Brevo e `SITE_URL` apontando para ele.
 
 ### Conteúdo e jurídico
 - [ ] Confirmar o direito de revenda dos materiais com logo "ABC Fácil" (6 de alfabetização) e dos livros de colorir com texto em inglês.
