@@ -55,13 +55,11 @@ export function CartDrawer({ open, onOpenChange }) {
                   key={item.id}
                   className="flex items-center justify-between gap-3 rounded-xl border border-petrol-100 bg-surface p-3"
                 >
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-petrol">{item.title}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold leading-snug text-petrol">{item.title}</p>
+                    <p className="mt-0.5 text-sm font-bold text-petrol">{formatPrice(item.price)}</p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="whitespace-nowrap text-sm font-bold text-petrol">
-                      {formatPrice(item.price)}
-                    </span>
+                  <div className="flex items-center">
                     <button
                       onClick={() => removeItem(item.id)}
                       className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-petrol-300 transition-colors hover:bg-red-50 hover:text-red-500"

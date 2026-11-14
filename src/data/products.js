@@ -13,7 +13,7 @@ export const categories = [
 export const products = [
   {
     id: "alfabeto-tracado",
-    image: "/products/alfabeto-tracado.webp",
+    image: "/products/alfabeto-tracado.webp?v=2",
     title: "Alfabeto Traçado",
     description: "27 páginas · Traçado das letras",
     category: "alfabetizacao",
@@ -22,7 +22,7 @@ export const products = [
   },
   {
     id: "vogais-tracado",
-    image: "/products/vogais-tracado.webp",
+    image: "/products/vogais-tracado.webp?v=2",
     title: "Vogais Traçado",
     description: "6 páginas · Traçado das vogais",
     category: "alfabetizacao",
@@ -31,7 +31,7 @@ export const products = [
   },
   {
     id: "forme-silabas",
-    image: "/products/forme-silabas.webp",
+    image: "/products/forme-silabas.webp?v=2",
     title: "Forme Sílabas",
     description: "22 páginas · Formação de sílabas",
     category: "alfabetizacao",
@@ -40,7 +40,7 @@ export const products = [
   },
   {
     id: "letra-inicial",
-    image: "/products/letra-inicial.webp",
+    image: "/products/letra-inicial.webp?v=2",
     title: "Letra Inicial",
     description: "27 páginas · Associação letra e imagem",
     category: "alfabetizacao",
@@ -49,7 +49,7 @@ export const products = [
   },
   {
     id: "troca-letra",
-    image: "/products/troca-letra.webp",
+    image: "/products/troca-letra.webp?v=2",
     title: "Troca Letra",
     description: "10 páginas · Consciência fonológica",
     category: "alfabetizacao",
@@ -58,7 +58,7 @@ export const products = [
   },
   {
     id: "qual-e-a-palavra",
-    image: "/products/qual-e-a-palavra.webp",
+    image: "/products/qual-e-a-palavra.webp?v=2",
     title: "Qual é a Palavra?",
     description: "10 páginas · Leitura de palavras",
     category: "alfabetizacao",
@@ -67,7 +67,7 @@ export const products = [
   },
   {
     id: "aprende-cores",
-    image: "/products/aprende-cores.webp",
+    image: "/products/aprende-cores.webp?v=2",
     title: "Aprende Cores",
     description: "11 páginas · Reconhecimento das cores",
     category: "numeros-formas",
@@ -76,7 +76,7 @@ export const products = [
   },
   {
     id: "aprende-quantidades",
-    image: "/products/aprende-quantidades.webp",
+    image: "/products/aprende-quantidades.webp?v=2",
     title: "Aprende Quantidades",
     description: "11 páginas · Contagem e quantidades",
     category: "numeros-formas",
@@ -85,7 +85,7 @@ export const products = [
   },
   {
     id: "aprende-operacoes",
-    image: "/products/aprende-operacoes.webp",
+    image: "/products/aprende-operacoes.webp?v=2",
     title: "Aprende Operações",
     description: "11 páginas · Primeiras continhas",
     category: "numeros-formas",
@@ -94,7 +94,7 @@ export const products = [
   },
   {
     id: "mestre-das-formas",
-    image: "/products/mestre-das-formas.webp",
+    image: "/products/mestre-das-formas.webp?v=2",
     title: "Mestre das Formas",
     description: "6 páginas · Formas geométricas",
     category: "numeros-formas",
@@ -103,7 +103,7 @@ export const products = [
   },
   {
     id: "arco-iris-das-emocoes",
-    image: "/products/arco-iris-das-emocoes.webp",
+    image: "/products/arco-iris-das-emocoes.webp?v=2",
     title: "Arco-Íris das Emoções",
     description: "6 páginas · Socioemocional",
     category: "atividades",
@@ -112,7 +112,7 @@ export const products = [
   },
   {
     id: "caderno-de-missoes-especiais",
-    image: "/products/caderno-de-missoes-especiais.webp",
+    image: "/products/caderno-de-missoes-especiais.webp?v=2",
     title: "Caderno de Missões Especiais",
     description: "6 páginas · Desafios divertidos",
     category: "atividades",
@@ -121,7 +121,7 @@ export const products = [
   },
   {
     id: "desafios-do-heroi",
-    image: "/products/desafios-do-heroi.webp",
+    image: "/products/desafios-do-heroi.webp?v=2",
     title: "Desafios do Herói",
     description: "6 páginas · Raciocínio e atenção",
     category: "atividades",
@@ -130,7 +130,7 @@ export const products = [
   },
   {
     id: "labirinto-das-ideias",
-    image: "/products/labirinto-das-ideias.webp",
+    image: "/products/labirinto-das-ideias.webp?v=2",
     title: "Labirinto das Ideias",
     description: "8 páginas · Labirintos e lógica",
     category: "atividades",
@@ -139,7 +139,7 @@ export const products = [
   },
   {
     id: "exploradores-do-conhecimento",
-    image: "/products/exploradores-do-conhecimento.webp",
+    image: "/products/exploradores-do-conhecimento.webp?v=2",
     title: "Exploradores do Conhecimento",
     description: "22 páginas · Atividades variadas",
     category: "atividades",
@@ -148,7 +148,7 @@ export const products = [
   },
   {
     id: "kit-rotina",
-    image: "/products/kit-rotina.webp",
+    image: "/products/kit-rotina.webp?v=2",
     title: "Kit Rotina sem Drama",
     description: "14 páginas · Quadros, tags e rotinas manhã, tarde e noite",
     category: "rotina",
@@ -157,7 +157,7 @@ export const products = [
   },
   {
     id: "placas-de-banheiro",
-    image: "/products/placas-de-banheiro.webp",
+    image: "/products/placas-de-banheiro.webp?v=2",
     title: "Placas de Banheiro",
     description: "4 páginas · Versões menina e menino",
     category: "rotina",
@@ -166,7 +166,7 @@ export const products = [
   },
   {
     id: "livro-de-colorir-biblico",
-    image: "/products/livro-de-colorir-biblico.webp",
+    image: "/products/livro-de-colorir-biblico.webp?v=2",
     title: "Livro de Colorir Bíblico",
     description: "36 páginas · Colorir com tema bíblico",
     category: "livros",
@@ -175,7 +175,7 @@ export const products = [
   },
   {
     id: "livro-de-colorir-ursinhos",
-    image: "/products/livro-de-colorir-ursinhos.webp",
+    image: "/products/livro-de-colorir-ursinhos.webp?v=2",
     title: "Livro de Colorir dos Ursinhos",
     description: "36 páginas · Colorir com ursinhos",
     category: "livros",
@@ -184,7 +184,7 @@ export const products = [
   },
   {
     id: "tchau-fraldinha-menino",
-    image: "/products/tchau-fraldinha-menino.webp",
+    image: "/products/tchau-fraldinha-menino.webp?v=2",
     title: "Tchau, Fraldinha! (menino)",
     description: "15 páginas · Desfralde em história",
     category: "livros",
@@ -193,7 +193,7 @@ export const products = [
   },
   {
     id: "tchau-fraldinha-menina",
-    image: "/products/tchau-fraldinha-menina.webp",
+    image: "/products/tchau-fraldinha-menina.webp?v=2",
     title: "Tchau, Fraldinha! (menina)",
     description: "15 páginas · Desfralde em história",
     category: "livros",
@@ -202,7 +202,7 @@ export const products = [
   },
   {
     id: "a-pascoa-de-ton",
-    image: "/products/a-pascoa-de-ton.webp",
+    image: "/products/a-pascoa-de-ton.webp?v=2",
     title: "A Páscoa de Ton, o Coelhinho do Amor",
     description: "17 páginas · Ebook de Páscoa",
     category: "livros",
@@ -211,7 +211,7 @@ export const products = [
   },
   {
     id: "meu-diario-com-deus",
-    image: "/products/meu-diario-com-deus.webp",
+    image: "/products/meu-diario-com-deus.webp?v=2",
     title: "Meu Diário com Deus",
     description: "18 páginas · Diário cristão infantil",
     category: "livros",

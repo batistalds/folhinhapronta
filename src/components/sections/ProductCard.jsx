@@ -36,7 +36,7 @@ export function ProductCard({ product, onAdd }) {
             alt={`Capa de ${product.title}`}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-contain p-3 drop-shadow-md"
+            className="h-full w-full object-contain p-1.5 drop-shadow-md sm:p-3"
           />
         ) : (
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm">
@@ -45,13 +45,13 @@ export function ProductCard({ product, onAdd }) {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
-        <h3 className="mb-1 line-clamp-2 text-base font-bold text-petrol">{product.title}</h3>
-        <p className="mb-4 text-xs text-muted-foreground">{product.description}</p>
+      <div className="flex flex-1 flex-col p-3 sm:p-5">
+        <h3 className="mb-1 line-clamp-2 text-sm font-bold leading-snug text-petrol sm:text-base">{product.title}</h3>
+        <p className="mb-3 line-clamp-2 text-[11px] text-muted-foreground sm:mb-4 sm:text-xs">{product.description}</p>
 
-        <div className="mt-auto flex items-center justify-between gap-3">
-          <span className="text-xl font-extrabold text-petrol">{formatPrice(product.price)}</span>
-          <Button variant="mint" size="sm" onClick={handleClick} className="h-11 min-w-[42px]">
+        <div className="mt-auto flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+          <span className="text-lg font-extrabold text-petrol sm:text-xl">{formatPrice(product.price)}</span>
+          <Button variant="mint" size="sm" onClick={handleClick} className="h-11 w-full min-w-[42px] sm:w-auto">
             <AnimatePresence mode="wait" initial={false}>
               {added ? (
                 <motion.span

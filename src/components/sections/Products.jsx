@@ -31,12 +31,12 @@ export function Products({ loading }) {
           </p>
         </div>
 
-        <div className="mb-10 flex flex-wrap items-center justify-center gap-2">
+        <div className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:mb-10 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`min-h-11 rounded-full border px-4 py-2.5 text-sm font-semibold transition-all ${
+              className={`min-h-11 shrink-0 whitespace-nowrap rounded-full border px-4 py-2.5 text-sm font-semibold transition-all ${
                 activeCategory === cat.id
                   ? 'border-petrol bg-petrol text-white shadow-md'
                   : 'border-petrol-100 bg-white text-petrol-600 hover:border-petrol-300'
@@ -47,12 +47,12 @@ export function Products({ loading }) {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
           {loading
             ? Array.from({ length: 8 }).map((_, i) => (
                 <div key={i} className="overflow-hidden rounded-2xl border border-petrol-100 bg-white shadow-card">
                   <Skeleton className="aspect-[4/3] w-full rounded-none" />
-                  <div className="space-y-3 p-5">
+                  <div className="space-y-3 p-3 sm:p-5">
                     <Skeleton className="h-4 w-3/4" />
                     <Skeleton className="h-3 w-1/2" />
                     <Skeleton className="h-9 w-full" />
