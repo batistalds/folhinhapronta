@@ -15,9 +15,11 @@
 // duplicado.
 //
 // Quando o pedido vira "paid", envia (em segundo plano, sem afetar a resposta):
-//   * ao cliente: e-mail com o link da página /sucesso da compra;
+//   * ao cliente: e-mail com o link da página /sucesso e a lista de materiais
+//     (reply-to = EMAIL_FROM_ADDRESS, o e-mail público da loja);
 //   * para CONTACT_EMAIL (secret, nunca exposto no site): aviso de nova venda.
-// Falha no envio só é registrada no log — o pedido continua "paid".
+// Envio pela API do Brevo (_shared/email.ts). Falha no envio só é registrada
+// no log — o pedido continua "paid" e a Stripe recebe 200.
 //
 // Endpoint configurado na Stripe:
 //   https://<project-ref>.supabase.co/functions/v1/webhook-stripe
@@ -50,24 +52,44 @@ declare const EdgeRuntime: { waitUntil(promise: Promise<unknown>): void } | unde
 
 async function notifyPaid(order: PaidOrder, session: Session, method: string) {
   try {
+    type Item = { title: string; bundle_items: string[] | null }
     const { data: rows } = await supabaseAdmin
       .from('order_items')
-      .select('products (title)')
+      .select('products (title, bundle_items)')
       .eq('order_id', order.id)
-    const titles = (rows ?? []).map((r) => (r.products as unknown as { title: string })?.title).filter(Boolean)
+    const items = (rows ?? []).map((r) => r.products as unknown as Item).filter(Boolean)
+    const titles = items.map((i) => i.title)
+
+    // Kits: lista também os PDFs que vêm dentro de cada um.
+    const bundleIds = [...new Set(items.flatMap((i) => i.bundle_items ?? []))]
+    const bundleTitles = new Map<string, string>()
+    if (bundleIds.length > 0) {
+      const { data: inner } = await supabaseAdmin.from('products').select('id, title').in('id', bundleIds)
+      for (const p of inner ?? []) bundleTitles.set(p.id, p.title)
+    }
+    const contents = (i: Item) => (i.bundle_items ?? []).map((id) => bundleTitles.get(id)).filter(Boolean) as string[]
     const total = formatBRL(Number(order.total))
     const link = `${SITE_URL}/sucesso?session_id=${order.stripe_session_id ?? session.id}`
 
     if (order.customer_email) {
-      const itemsHtml = titles.map((t) => `<li>${escapeHtml(t)}</li>`).join('')
+      const itemsHtml = items
+        .map((i) => {
+          const inner = contents(i)
+          const sub = inner.length
+            ? `<ul style="margin:4px 0 8px;color:#555;font-size:13px">${inner.map((t) => `<li>${escapeHtml(t)}</li>`).join('')}</ul>`
+            : ''
+          return `<li><strong>${escapeHtml(i.title)}</strong>${sub}</li>`
+        })
+        .join('')
+      const itemsText = items.flatMap((i) => [`- ${i.title}`, ...contents(i).map((t) => `    • ${t}`)])
       const sent = await sendEmail({
         to: order.customer_email,
         subject: 'Seus materiais da Folhinha Pronta estão prontos',
         text: [
           'Obrigado pela sua compra na Folhinha Pronta!',
           '',
-          'Itens:',
-          ...titles.map((t) => `- ${t}`),
+          'Materiais comprados:',
+          ...itemsText,
           `Total: ${total}`,
           '',
           `Baixe seus PDFs por este link: ${link}`,
@@ -78,7 +100,7 @@ async function notifyPaid(order: PaidOrder, session: Session, method: string) {
         html: `
           <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#1E3A5F">
             <h2 style="margin-bottom:4px">Obrigado pela sua compra! 🎉</h2>
-            <p>Seu pagamento foi confirmado. Estes são os seus materiais:</p>
+            <p>Seu pagamento foi confirmado. Estes são os materiais que você comprou:</p>
             <ul>${itemsHtml}</ul>
             <p><strong>Total:</strong> ${total}</p>
             <p style="margin:28px 0">
@@ -103,6 +125,8 @@ async function notifyPaid(order: PaidOrder, session: Session, method: string) {
     if (CONTACT_EMAIL) {
       const sent = await sendEmail({
         to: CONTACT_EMAIL,
+        // Responder o aviso de venda já abre uma mensagem para o cliente.
+        replyTo: order.customer_email ?? undefined,
         subject: `Nova venda: ${total} (${method})`,
         text: [
           `Nova venda confirmada: ${total}`,

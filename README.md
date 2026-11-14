@@ -14,7 +14,7 @@ Functions) + Stripe Checkout (cartão e Pix) no backend.
 - Tailwind CSS 3 + componentes no estilo shadcn/ui (Radix), Framer Motion
 - Supabase: Postgres com RLS, bucket privado `pdfs`, Edge Functions em Deno
 - Stripe Checkout (pagamento único, cartão + Pix)
-- Resend (e-mails de confirmação e aviso de venda)
+- Brevo (API transacional: e-mail de confirmação e aviso de venda)
 - Cloudflare Pages (deploy automático a cada push na `master`)
 
 ## Estrutura
@@ -37,7 +37,7 @@ supabase/
     create-checkout-session/  valida o carrinho, cria o pedido e a sessão da Stripe
     webhook-stripe/           confirma pagamento (cartão/Pix) e envia e-mails
     get-order-status/         usado pela /sucesso para gerar os links de download
-    _shared/                  CORS e envio de e-mail (Resend)
+    _shared/                  CORS e envio de e-mail (Brevo)
 scripts/upload-pdfs.ps1      envia os PDFs de pdf/site/ para o bucket "pdfs"
 ```
 
@@ -61,8 +61,9 @@ Functions publicadas.
 | `STRIPE_SECRET_KEY` | Edge Functions | Stripe → Developers → API keys |
 | `STRIPE_WEBHOOK_SECRET` | `webhook-stripe` | Stripe → Developers → Webhooks → endpoint → *Signing secret* |
 | `SITE_URL` | Edge Functions (links de retorno da Stripe e do e-mail) | URL pública do site, ex.: `https://folhinhapronta.pages.dev` (sem barra no final) |
-| `RESEND_API_KEY` | `webhook-stripe` (e-mails) | resend.com → API Keys |
-| `EMAIL_FROM` | `webhook-stripe` (remetente) | ex.: `Folhinha Pronta <contato@folhinhapronta.com.br>` — o domínio precisa estar verificado no Resend |
+| `BREVO_API_KEY` | `webhook-stripe` (e-mails) | brevo.com → SMTP & API → API keys |
+| `EMAIL_FROM_NAME` | `webhook-stripe` (nome do remetente) | `Folhinha Pronta` |
+| `EMAIL_FROM_ADDRESS` | `webhook-stripe` (remetente e reply-to) | `folhinhapronta@gmail.com` — precisa estar verificado como *sender* no Brevo |
 | `CONTACT_EMAIL` | `webhook-stripe` (aviso de nova venda) | e-mail interno que recebe as notificações; nunca aparece no site |
 
 Os segredos ficam **só** nos secrets do Supabase (`supabase secrets set NOME=valor`)
@@ -71,7 +72,10 @@ Os segredos ficam **só** nos secrets do Supabase (`supabase secrets set NOME=va
 
 **E-mails:** quando um pedido vira `paid`, o `webhook-stripe` envia ao cliente o
 link da página `/sucesso` da compra e manda um aviso de venda para
-`CONTACT_EMAIL`. Sem `RESEND_API_KEY`/`EMAIL_FROM` o envio é pulado (fica só um
+`CONTACT_EMAIL` (com reply-to = e-mail do cliente). A confirmação lista os
+materiais (inclusive os PDFs de cada kit) e tem reply-to = `EMAIL_FROM_ADDRESS`.
+O envio usa a API HTTP do Brevo porque as Edge Functions bloqueiam SMTP.
+Sem `BREVO_API_KEY`/`EMAIL_FROM_ADDRESS` o envio é pulado (fica só um
 aviso no log) e a venda continua funcionando normalmente.
 
 ## Deploy

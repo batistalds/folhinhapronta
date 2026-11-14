@@ -1,15 +1,18 @@
-// Envio de e-mail pela API do Resend (https://resend.com).
+// Envio de e-mail pela API transacional do Brevo (https://www.brevo.com).
+// As Edge Functions bloqueiam SMTP, por isso o envio é via HTTP.
 //
 // Secrets usados (configurar com `supabase secrets set`):
-//   RESEND_API_KEY  chave da API do Resend
-//   EMAIL_FROM      remetente, ex.: "Folhinha Pronta <contato@folhinhapronta.com.br>"
-//                   (o domínio precisa estar verificado no Resend)
+//   BREVO_API_KEY       chave da API do Brevo (SMTP & API → API keys)
+//   EMAIL_FROM_NAME     nome do remetente, ex.: "Folhinha Pronta"
+//   EMAIL_FROM_ADDRESS  e-mail do remetente (verificado como sender no Brevo),
+//                       ex.: folhinhapronta@gmail.com — também é o reply-to padrão
 //
 // sendEmail nunca lança exceção: retorna true/false e registra o erro no log,
 // para que uma falha de e-mail não quebre quem chamou (ex.: o webhook).
 
-const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? ''
-const EMAIL_FROM = Deno.env.get('EMAIL_FROM') ?? ''
+const BREVO_API_KEY = Deno.env.get('BREVO_API_KEY') ?? ''
+const EMAIL_FROM_NAME = Deno.env.get('EMAIL_FROM_NAME') ?? 'Folhinha Pronta'
+const EMAIL_FROM_ADDRESS = Deno.env.get('EMAIL_FROM_ADDRESS') ?? ''
 
 type EmailInput = {
   to: string
@@ -20,31 +23,32 @@ type EmailInput = {
 }
 
 export async function sendEmail({ to, subject, html, text, replyTo }: EmailInput): Promise<boolean> {
-  if (!RESEND_API_KEY || !EMAIL_FROM) {
-    console.warn('E-mail não enviado: RESEND_API_KEY ou EMAIL_FROM não configurados.')
+  if (!BREVO_API_KEY || !EMAIL_FROM_ADDRESS) {
+    console.warn('E-mail não enviado: BREVO_API_KEY ou EMAIL_FROM_ADDRESS não configurados.')
     return false
   }
 
   try {
-    const res = await fetch('https://api.resend.com/emails', {
+    const res = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
+        'api-key': BREVO_API_KEY,
         'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
-        from: EMAIL_FROM,
-        to: [to],
+        sender: { name: EMAIL_FROM_NAME, email: EMAIL_FROM_ADDRESS },
+        to: [{ email: to }],
+        replyTo: { email: replyTo || EMAIL_FROM_ADDRESS },
         subject,
-        html,
-        text,
-        ...(replyTo ? { reply_to: replyTo } : {}),
+        htmlContent: html,
+        textContent: text,
       }),
       signal: AbortSignal.timeout(10_000),
     })
 
     if (!res.ok) {
-      console.error(`Resend respondeu ${res.status}:`, await res.text())
+      console.error(`Brevo respondeu ${res.status}:`, await res.text())
       return false
     }
     return true
