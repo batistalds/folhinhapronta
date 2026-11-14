@@ -1,6 +1,6 @@
 # Pendências — Folhinha Pronta
 
-Última atualização: 13/11/2026
+Última atualização: 14/11/2026
 
 - **Marca:** Folhinha Pronta (antes "Aprendemais")
 - **Site:** https://folhinhapronta.pages.dev (Cloudflare Pages, deploy automático na `master`)
@@ -41,11 +41,7 @@
       `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`.
 
 ### E-mail (Brevo)
-- [ ] Criar conta no Brevo com folhinhapronta@gmail.com e verificar esse endereço como *sender*
-      (Senders, Domains & Dedicated IPs → Senders).
-- [ ] Criar a API key (SMTP & API → API keys) e configurar os secrets:
-      `BREVO_API_KEY`, `EMAIL_FROM_NAME="Folhinha Pronta"`, `EMAIL_FROM_ADDRESS=folhinhapronta@gmail.com`.
-- [ ] Publicar o `webhook-stripe` e testar uma compra (confirmação no e-mail do comprador e aviso de venda no e-mail pessoal).
+- [x] Brevo configurado (sender folhinhapronta@gmail.com, secrets e webhook publicados); testado com cartão e Pix: confirmação chega ao comprador e aviso de venda ao e-mail pessoal.
 - [ ] Opcional (melhora a entrega e reduz spam): domínio próprio autenticado no Brevo e `SITE_URL` apontando para ele.
 
 ### Conteúdo e jurídico
