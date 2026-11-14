@@ -49,7 +49,7 @@ export function Privacy() {
         <li><strong>Stripe</strong> — processamento de pagamentos (cartão e Pix).</li>
         <li><strong>Supabase</strong> — banco de dados dos pedidos e armazenamento dos arquivos.</li>
         <li><strong>Cloudflare</strong> — hospedagem do site.</li>
-        <li><strong>Resend</strong> — envio dos e-mails de confirmação.</li>
+        <li><strong>Brevo</strong> — envio dos e-mails de confirmação da compra.</li>
       </ul>
       <p>
         Alguns desses fornecedores armazenam dados em servidores fora do Brasil, com garantias de proteção

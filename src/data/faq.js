@@ -40,12 +40,12 @@ export const faqItems = [
     question: 'Posso desistir da compra?',
     // REVISAR com contador/advogado (CDC art. 49).
     answer:
-      'Sim. Pelo Código de Defesa do Consumidor (art. 49), você pode desistir em até 7 dias corridos após o pagamento, sem precisar justificar. É só enviar um e-mail para contato@folhinhapronta.com.br ou mensagem no WhatsApp (28) 99966-2398 com o e-mail usado na compra. Devolvemos o valor integral pelo mesmo meio de pagamento (estorno no cartão ou devolução do Pix) e o acesso aos downloads é encerrado. Se algum arquivo vier com problema, fale com a gente a qualquer momento.',
+      'Sim. Pelo Código de Defesa do Consumidor (art. 49), você pode desistir em até 7 dias corridos após o pagamento, sem precisar justificar. É só enviar um e-mail para folhinhapronta@gmail.com ou mensagem no WhatsApp (28) 99966-2398 com o e-mail usado na compra. Devolvemos o valor integral pelo mesmo meio de pagamento (estorno no cartão ou devolução do Pix) e o acesso aos downloads é encerrado. Se algum arquivo vier com problema, fale com a gente a qualquer momento.',
   },
   {
     id: 'faq-8',
     question: 'Não recebi o e-mail. E agora?',
     answer:
-      'Confira a caixa de spam e as abas Promoções/Atualizações. Se não encontrar, fale com a gente pelo e-mail contato@folhinhapronta.com.br ou pelo WhatsApp (28) 99966-2398 informando o e-mail usado na compra.',
+      'Enviamos também um e-mail com os links. Se não aparecer, confira a caixa de spam ou promoções. Os downloads continuam disponíveis na página da sua compra. Se mesmo assim não encontrar, fale com a gente pelo e-mail folhinhapronta@gmail.com ou pelo WhatsApp (28) 99966-2398 informando o e-mail usado na compra.',
   },
 ]

@@ -5,7 +5,7 @@
 export const site = {
   name: 'Folhinha Pronta',
   url: 'https://folhinhapronta.pages.dev',
-  email: 'contato@folhinhapronta.com.br',
+  email: 'folhinhapronta@gmail.com',
   whatsappDisplay: '(28) 99966-2398',
   whatsappLink: 'https://wa.me/5528999662398',
   // Preencher quando houver: razão social / nome do responsável e CNPJ.

@@ -93,7 +93,11 @@ export function Success() {
         <div>
           <h1 className="text-2xl font-extrabold text-petrol sm:text-3xl">Compra confirmada!</h1>
           <p className="mt-2 max-w-md text-petrol-600">
-            Obrigado pela sua compra. Seus materiais estão prontos — os links expiram em 30 minutos.
+            Obrigado pela sua compra. Seus materiais estão prontos — cada botão de download vale por 30 minutos.
+          </p>
+          <p className="mx-auto mt-3 max-w-md rounded-xl bg-petrol-50 px-4 py-3 text-sm text-petrol-600">
+            Enviamos também um e-mail com os links. Se não aparecer, confira a caixa de spam ou promoções. Os
+            downloads continuam disponíveis nesta página.
           </p>
         </div>
 
